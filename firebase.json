@@ -1,0 +1,26 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      ".agents/**",
+      ".github/**",
+      "skills-lock.json",
+      "public/**",
+      "**/*.md",
+      "**/*.ps1",
+      "**/ftp-config.json",
+      "**/package.json",
+      "**/package-lock.json",
+      "**/vite.config.js",
+      "**/playwright.config.js",
+      "**/postcss.config.js",
+      "**/tailwind.config.js",
+      "couplegames/src/**",
+      "couplegames/e2e/**",
+      "couplegames/src/test/**"
+    ]
+  }
+}

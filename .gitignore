@@ -20,3 +20,6 @@ bin-release/
 
 # FTP credentials (contains sensitive login info)
 photoscavenger/ftp-config.json
+
+# Firebase CLI local cache/state
+.firebase/
