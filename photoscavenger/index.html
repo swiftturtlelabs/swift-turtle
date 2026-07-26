@@ -267,16 +267,26 @@
             transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             transform: translate(-2px, -2px);
             box-shadow: 5px 5px 0 rgba(43, 38, 32, 0.35);
         }
 
-        body.theme-mom .btn {
+        .btn:disabled {
+            background: #b8aea0;
+            color: #f5f0e8;
+            border-color: #9a9184;
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.75;
+            transform: none;
+        }
+
+        body.theme-mom .btn:not(:disabled) {
             background: var(--mom);
         }
 
-        body.theme-dad .btn {
+        body.theme-dad .btn:not(:disabled) {
             background: var(--dad);
         }
 
@@ -763,7 +773,7 @@
             <div class="time-input-group" id="timeInputGroup">
                 <label for="endTime">Hunt Ends At:</label>
                 <input type="datetime-local" id="endTime" />
-                <button class="btn" onclick="setEndTime()">Start Game</button>
+                <button class="btn" id="startGameBtn" onclick="setEndTime()" disabled>Start Game</button>
             </div>
             <div class="countdown" id="countdown">
                 <div class="countdown-label">Time Remaining:</div>
@@ -1103,6 +1113,30 @@
             }
         }
 
+        // Format a Date for datetime-local input (local timezone)
+        function toLocalDateTimeValue(date) {
+            return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+                .toISOString()
+                .slice(0, 16);
+        }
+
+        // Enable Start Game only when a date/time is set
+        function updateStartGameButton() {
+            const input = document.getElementById('endTime');
+            const startBtn = document.getElementById('startGameBtn');
+            if (!input || !startBtn) return;
+            startBtn.disabled = !input.value;
+        }
+
+        // Default empty picker to 1.5 hours from now when opened
+        function defaultEndTimeIfEmpty() {
+            const input = document.getElementById('endTime');
+            if (!input || input.value) return;
+            const defaultEnd = new Date(Date.now() + 90 * 60 * 1000);
+            input.value = toLocalDateTimeValue(defaultEnd);
+            updateStartGameButton();
+        }
+
         // Set end time
         async function setEndTime() {
             const input = document.getElementById('endTime');
@@ -1138,11 +1172,9 @@
             // Pre-fill the input with current end time if it exists
             if (endTime) {
                 const input = document.getElementById('endTime');
-                const localDateTime = new Date(endTime.getTime() - endTime.getTimezoneOffset() * 60000)
-                    .toISOString()
-                    .slice(0, 16);
-                input.value = localDateTime;
+                input.value = toLocalDateTimeValue(endTime);
             }
+            updateStartGameButton();
         }
 
         // Start countdown
@@ -1944,6 +1976,7 @@
             document.getElementById('photosGallery').classList.remove('show');
             document.getElementById('scavengerList').style.display = 'block';
             document.getElementById('endTime').value = '';
+            updateStartGameButton();
 
             // Reset instructions
             updateInstructions();
@@ -1952,6 +1985,14 @@
             renderItems();
             updateScores();
         }
+
+        // Wire up date/time picker behavior
+        const endTimeInput = document.getElementById('endTime');
+        endTimeInput.addEventListener('focus', defaultEndTimeIfEmpty);
+        endTimeInput.addEventListener('click', defaultEndTimeIfEmpty);
+        endTimeInput.addEventListener('input', updateStartGameButton);
+        endTimeInput.addEventListener('change', updateStartGameButton);
+        updateStartGameButton();
 
         // Initialize on load
         init();
