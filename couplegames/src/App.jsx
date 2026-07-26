@@ -294,41 +294,41 @@ function App() {
   // Intro screen
   if (!gameStarted) {
     return (
-      <div className="h-screen overflow-hidden bg-slate-900 text-slate-50 flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
+      <div className="h-screen overflow-hidden bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
         <div className="max-w-2xl w-full text-center">
           {/* Back button - hidden on intro since there's nowhere to go back to */}
-          <h1 className="text-5xl md:text-6xl font-bold mb-5 md:mb-6">Couple's Challenge</h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-7 md:mb-8 leading-relaxed">
+          <h1 className="font-display text-5xl md:text-6xl font-semibold mb-5 md:mb-6 tracking-tight">Couple's Challenge</h1>
+          <p className="text-xl md:text-2xl text-[#c9beac] mb-7 md:mb-8 leading-relaxed">
             Welcome to your competitive challenge series! You'll face 10 fun challenges designed to test your skills and creativity.
           </p>
-          
-          <div className="bg-slate-800 rounded-lg p-5 md:p-6 mb-5 md:mb-6 text-left">
-            <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-5">How It Works</h2>
+
+          <div className="border border-[#463e34] rounded-sm p-5 md:p-6 mb-5 md:mb-6 text-left">
+            <h2 className="font-display text-2xl md:text-3xl font-semibold mb-4 md:mb-5">How It Works</h2>
             <div className="space-y-4 md:space-y-5">
-              <div>
-                <h3 className="text-lg md:text-xl font-semibold text-blue-400 mb-2 md:mb-3">1st Half: At Home (5 Challenges)</h3>
-                <p className="text-base md:text-lg text-slate-300">Start with challenges you can do right at home - testing precision, estimation, and creativity.</p>
+              <div className="border-l-2 border-[#c96a4d] pl-4">
+                <h3 className="text-lg md:text-xl font-semibold text-[#e08a68] mb-2 md:mb-3">1st Half: At Home (5 Challenges)</h3>
+                <p className="text-base md:text-lg text-[#c9beac]">Start with challenges you can do right at home - testing precision, estimation, and creativity.</p>
               </div>
-              <div>
-                <h3 className="text-lg md:text-xl font-semibold text-pink-400 mb-2 md:mb-3">2nd Half: Out on the Town (5 Challenges)</h3>
-                <p className="text-base md:text-lg text-slate-300">Then head out for challenges that will take you around town - hunting, searching, and exploring.</p>
+              <div className="border-l-2 border-[#4d9a94] pl-4">
+                <h3 className="text-lg md:text-xl font-semibold text-[#6bbdb6] mb-2 md:mb-3">2nd Half: Out on the Town (5 Challenges)</h3>
+                <p className="text-base md:text-lg text-[#c9beac]">Then head out for challenges that will take you around town - hunting, searching, and exploring.</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-slate-800 rounded-lg p-5 md:p-6 mb-7 md:mb-8">
-            <h2 className="text-2xl md:text-3xl font-semibold mb-3 md:mb-4">Pick a Prize!</h2>
-            <p className="text-base md:text-lg text-slate-300 mb-4 md:mb-5">
+          <div className="border border-[#463e34] rounded-sm p-5 md:p-6 mb-7 md:mb-8">
+            <h2 className="font-display text-2xl md:text-3xl font-semibold mb-3 md:mb-4">Pick a Prize!</h2>
+            <p className="text-base md:text-lg text-[#c9beac] mb-4 md:mb-5">
               Before you start, decide on a prize for the winner! Maybe the winner picks where to eat lunch, gets to choose the next movie, or gets a special treat. Make it fun!
             </p>
-            <p className="text-sm md:text-base text-slate-400 italic">
+            <p className="text-sm md:text-base text-[#8c8071] italic">
               (Take a moment to discuss and agree on your prize now)
             </p>
           </div>
 
           <button
             onClick={startGame}
-            className="bg-green-600 hover:bg-green-700 text-white font-bold py-4 md:py-5 px-8 md:px-10 rounded-lg text-2xl md:text-3xl transition-all transform hover:scale-105 shadow-lg"
+            className="bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-bold py-4 md:py-5 px-8 md:px-10 rounded-sm text-2xl md:text-3xl transition-colors tracking-wide"
           >
             LET THE GAMES BEGIN!
           </button>
@@ -340,28 +340,28 @@ function App() {
   // Transition page between halves
   if (currentGame === -1) {
     return (
-      <div className="h-screen overflow-hidden bg-slate-900 text-slate-50 flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
+      <div className="h-screen overflow-hidden bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
         <div className="max-w-2xl w-full text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-5 md:mb-6">1st Half Complete! 🎉</h1>
-          <p className="text-xl md:text-2xl text-slate-300 mb-7 md:mb-8 leading-relaxed">
+          <h1 className="font-display text-4xl md:text-5xl font-semibold mb-5 md:mb-6">1st Half Complete!</h1>
+          <p className="text-xl md:text-2xl text-[#c9beac] mb-7 md:mb-8 leading-relaxed">
             Great job completing the first half! Now it's time to head over near the mall for the next challenges.
           </p>
-          
+
           {/* Score Display */}
-          <div className="flex justify-between items-center mb-7 md:mb-8 bg-slate-800 rounded-lg p-5 md:p-6 max-w-md mx-auto">
+          <div className="flex justify-between items-center mb-7 md:mb-8 border border-[#463e34] rounded-sm p-5 md:p-6 max-w-md mx-auto">
             <div className="text-center flex-1">
-              <div className="text-sm md:text-base text-slate-400 mb-2">Kenny</div>
-              <div className="text-4xl md:text-5xl font-bold text-blue-400">{scores.player1}</div>
+              <div className="text-sm md:text-base text-[#8c8071] mb-2">Kenny</div>
+              <div className="font-display text-4xl md:text-5xl font-semibold text-[#e08a68]">{scores.player1}</div>
             </div>
-            <div className="text-2xl md:text-3xl font-bold mx-3 md:mx-5">vs</div>
+            <div className="text-2xl md:text-3xl font-semibold mx-3 md:mx-5 text-[#8c8071]">vs</div>
             <div className="text-center flex-1">
-              <div className="text-sm md:text-base text-slate-400 mb-2">Katie</div>
-              <div className="text-4xl md:text-5xl font-bold text-pink-400">{scores.player2}</div>
+              <div className="text-sm md:text-base text-[#8c8071] mb-2">Katie</div>
+              <div className="font-display text-4xl md:text-5xl font-semibold text-[#6bbdb6]">{scores.player2}</div>
             </div>
           </div>
-          
-          <div className="bg-slate-800 rounded-lg p-5 md:p-6 mb-7 md:mb-8">
-            <p className="text-lg md:text-xl text-slate-300">
+
+          <div className="border border-[#463e34] rounded-sm p-5 md:p-6 mb-7 md:mb-8">
+            <p className="text-lg md:text-xl text-[#c9beac]">
               Make sure you're ready to go out and explore! The 2nd half challenges will have you hunting, searching, and taking pictures around the mall area.
             </p>
           </div>
@@ -369,13 +369,13 @@ function App() {
           <div className="flex gap-3 md:gap-4 justify-center">
             <button
               onClick={goBack}
-              className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 md:py-3 px-4 md:px-6 rounded-lg transition-colors text-sm md:text-base"
+              className="border border-[#463e34] hover:border-[#c9beac] text-[#c9beac] hover:text-[#f3ead9] font-semibold py-2 md:py-3 px-4 md:px-6 rounded-sm transition-colors text-sm md:text-base"
             >
               ← Back
             </button>
             <button
               onClick={continueToSecondHalf}
-              className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-lg text-lg md:text-xl transition-all transform hover:scale-105 shadow-lg"
+              className="bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-bold py-3 md:py-4 px-6 md:px-8 rounded-sm text-lg md:text-xl transition-colors"
             >
               Continue to 2nd Half →
             </button>
@@ -392,88 +392,84 @@ function App() {
     const winnerColor = winner === 'player1' ? 'blue' : winner === 'player2' ? 'pink' : null
     
     return (
-      <div className="h-screen overflow-hidden bg-slate-900 text-slate-50 flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
+      <div className="h-screen overflow-hidden bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
         <div className="max-w-2xl w-full">
-          <h1 className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8">Final Results</h1>
-          
+          <h1 className="font-display text-3xl md:text-4xl font-semibold text-center mb-6 md:mb-8">Final Results</h1>
+
           {/* Winner Celebration */}
           {winner !== 'tie' && (
-            <div className={`bg-gradient-to-r rounded-lg p-4 md:p-6 mb-4 md:mb-6 border-2 animate-pulse ${
-              winner === 'player1' 
-                ? 'from-blue-600/20 to-blue-800/20 border-blue-500/50' 
-                : 'from-pink-600/20 to-pink-800/20 border-pink-500/50'
+            <div className={`rounded-sm p-4 md:p-6 mb-4 md:mb-6 border-t-4 ${
+              winner === 'player1'
+                ? 'border-[#e08a68] bg-[#e08a68]/10'
+                : 'border-[#6bbdb6] bg-[#6bbdb6]/10'
             }`}>
               <div className="text-center">
-                <div className="text-4xl md:text-5xl mb-2 md:mb-3">🎉</div>
-                <h2 className={`text-2xl md:text-3xl font-bold mb-2 ${
-                  winner === 'player1' ? 'text-blue-400' : 'text-pink-400'
+                <h2 className={`font-display text-2xl md:text-3xl font-semibold mb-2 ${
+                  winner === 'player1' ? 'text-[#e08a68]' : 'text-[#6bbdb6]'
                 }`}>
                   {winnerName} Wins!
                 </h2>
-                <p className="text-slate-300 text-base md:text-lg">
-                  Congratulations on your victory! 🏆
+                <p className="text-[#c9beac] text-base md:text-lg">
+                  Congratulations on your victory!
                 </p>
               </div>
             </div>
           )}
-          
+
           {winner === 'tie' && (
-            <div className="bg-gradient-to-r from-blue-600/20 to-pink-600/20 rounded-lg p-4 md:p-6 mb-4 md:mb-6 border-2 border-slate-500/50">
+            <div className="rounded-sm p-4 md:p-6 mb-4 md:mb-6 border-t-4 border-[#8c8071] bg-[#8c8071]/10">
               <div className="text-center">
-                <div className="text-4xl md:text-5xl mb-2 md:mb-3">🤝</div>
-                <h2 className="text-2xl md:text-3xl font-bold text-slate-300 mb-2">
+                <h2 className="font-display text-2xl md:text-3xl font-semibold text-[#f3ead9] mb-2">
                   It's a Tie!
                 </h2>
-                <p className="text-slate-300 text-base md:text-lg">
-                  What an evenly matched competition! 🎯
+                <p className="text-[#c9beac] text-base md:text-lg">
+                  What an evenly matched competition!
                 </p>
               </div>
             </div>
           )}
-          
-          <div className="bg-slate-800 rounded-lg p-4 md:p-6 mb-4 md:mb-6">
+
+          <div className="border border-[#463e34] rounded-sm p-4 md:p-6 mb-4 md:mb-6">
             <div className={`flex justify-between items-center mb-3 md:mb-4 ${
-              winner === 'player1' ? 'bg-blue-600/20 rounded p-2 border border-blue-500/50' : ''
+              winner === 'player1' ? 'rounded-sm p-2 border border-[#e08a68]/40' : ''
             }`}>
               <div className="text-xl md:text-2xl font-semibold">Kenny</div>
-              <div className={`font-bold text-blue-400 ${
+              <div className={`font-display font-semibold text-[#e08a68] ${
                 winner === 'player1' ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'
               }`}>
                 {scores.player1}
-                {winner === 'player1' && <span className="ml-2">👑</span>}
               </div>
             </div>
             <div className={`flex justify-between items-center ${
-              winner === 'player2' ? 'bg-pink-600/20 rounded p-2 border border-pink-500/50' : ''
+              winner === 'player2' ? 'rounded-sm p-2 border border-[#6bbdb6]/40' : ''
             }`}>
               <div className="text-xl md:text-2xl font-semibold">Katie</div>
-              <div className={`font-bold text-pink-400 ${
+              <div className={`font-display font-semibold text-[#6bbdb6] ${
                 winner === 'player2' ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'
               }`}>
                 {scores.player2}
-                {winner === 'player2' && <span className="ml-2">👑</span>}
               </div>
             </div>
           </div>
 
-          <div className="bg-slate-800 rounded-lg p-4 md:p-6 max-h-80 md:max-h-96 overflow-y-auto mb-4 md:mb-6">
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">Game Summary</h2>
+          <div className="border border-[#463e34] rounded-sm p-4 md:p-6 max-h-80 md:max-h-96 overflow-y-auto mb-4 md:mb-6">
+            <h2 className="font-display text-xl md:text-2xl font-semibold mb-3 md:mb-4">Game Summary</h2>
             <div className="space-y-2 md:space-y-3">
               {CHALLENGES.map((challenge, index) => {
                 const winner = winners[index + 1]
                 return (
-                  <div key={challenge.id} className="border-b border-slate-700 pb-2 md:pb-3 last:border-0">
+                  <div key={challenge.id} className="border-b border-[#463e34] pb-2 md:pb-3 last:border-0">
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <div className="text-xs md:text-sm text-slate-400 mb-1">{challenge.phase}</div>
+                        <div className="text-xs md:text-sm text-[#8c8071] mb-1">{challenge.phase}</div>
                         <div className="font-semibold text-sm md:text-base">Game {challenge.id}: {challenge.title}</div>
                       </div>
-                      <div className={`ml-3 md:ml-4 px-2 md:px-3 py-1 rounded text-xs md:text-sm ${
-                        winner === 'player1' 
-                          ? 'bg-blue-500 text-white' 
+                      <div className={`ml-3 md:ml-4 px-2 md:px-3 py-1 rounded-sm text-xs md:text-sm ${
+                        winner === 'player1'
+                          ? 'bg-[#e08a68] text-[#221e1a]'
                           : winner === 'player2'
-                          ? 'bg-pink-500 text-white'
-                          : 'bg-slate-700 text-slate-300'
+                          ? 'bg-[#6bbdb6] text-[#221e1a]'
+                          : 'border border-[#463e34] text-[#8c8071]'
                       }`}>
                         {winner === 'player1' ? 'Kenny' : winner === 'player2' ? 'Katie' : 'Not played'}
                       </div>
@@ -487,13 +483,13 @@ function App() {
           <div className="flex gap-3 md:gap-4 mt-4 md:mt-6">
             <button
               onClick={goBack}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 md:py-3 px-4 md:px-6 rounded-lg transition-colors text-sm md:text-base"
+              className="flex-1 border border-[#463e34] hover:border-[#c9beac] text-[#c9beac] hover:text-[#f3ead9] font-semibold py-2 md:py-3 px-4 md:px-6 rounded-sm transition-colors text-sm md:text-base"
             >
               ← Back
             </button>
             <button
               onClick={resetGame}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 md:py-3 px-4 md:px-6 rounded-lg transition-colors text-sm md:text-base"
+              className="flex-1 bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-bold py-2 md:py-3 px-4 md:px-6 rounded-sm transition-colors text-sm md:text-base"
             >
               Play Again
             </button>
@@ -533,13 +529,13 @@ function App() {
   }
 
   return (
-    <div className="h-screen overflow-hidden bg-slate-900 text-slate-50 flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
+    <div className="h-screen overflow-hidden bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
       <div className="max-w-2xl w-full">
         {/* Back Button */}
         {currentGame > 0 && (
           <button
             onClick={goBack}
-            className="mb-3 md:mb-4 text-slate-400 hover:text-slate-300 transition-colors flex items-center gap-2 text-sm md:text-base"
+            className="mb-3 md:mb-4 text-[#8c8071] hover:text-[#c9beac] transition-colors flex items-center gap-2 text-sm md:text-base"
           >
             ← Back
           </button>
@@ -548,67 +544,67 @@ function App() {
         {/* Progress Bar */}
         <div className="mb-7 md:mb-8">
           <div className="flex justify-between items-center mb-3">
-            <span className="text-sm md:text-base text-slate-400">Game {currentGame + 1} of {CHALLENGES.length}</span>
+            <span className="text-sm md:text-base text-[#8c8071]">Game {currentGame + 1} of {CHALLENGES.length}</span>
             <div className="flex items-center gap-2">
-              <span className="text-sm md:text-base text-slate-400">{completedGames} completed</span>
+              <span className="text-sm md:text-base text-[#8c8071]">{completedGames} completed</span>
               {scoreMismatch && (
-                <span className="text-xs text-yellow-400 bg-yellow-900/30 px-2 py-1 rounded" title="Score total doesn't match completed games">
-                  ⚠️
+                <span className="text-xs text-[#d9a441] border border-[#d9a441]/40 px-2 py-1 rounded-sm" title="Score total doesn't match completed games">
+                  !
                 </span>
               )}
             </div>
           </div>
-          <div className="w-full bg-slate-800 rounded-full h-3">
-            <div 
-              className="bg-blue-500 h-3 rounded-full transition-all duration-300"
+          <div className="w-full bg-[#332c25] h-2">
+            <div
+              className="bg-[#c96a4d] h-2 transition-all duration-300"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
           {scoreMismatch && (
-            <div className="mt-3 text-xs text-yellow-400 bg-yellow-900/20 rounded p-2">
-              ⚠️ Warning: Score total ({totalScore}) doesn't match completed games ({actualCompletedGames}). Use the edit button to adjust scores.
+            <div className="mt-3 text-xs text-[#d9a441] border border-[#d9a441]/30 rounded-sm p-2">
+              Warning: Score total ({totalScore}) doesn't match completed games ({actualCompletedGames}). Use the edit button to adjust scores.
             </div>
           )}
         </div>
 
         {/* Score Display */}
-        <div className="mb-7 md:mb-8 bg-slate-800 rounded-lg p-5 md:p-6">
+        <div className="mb-7 md:mb-8 border border-[#463e34] rounded-sm p-5 md:p-6">
           <div className="flex justify-between items-center mb-3 relative">
             <div className="text-center flex-1">
-              <div className="text-sm md:text-base text-slate-400 mb-2">Kenny</div>
-              <div className="text-4xl md:text-5xl font-bold text-blue-400">{scores.player1}</div>
+              <div className="text-sm md:text-base text-[#8c8071] mb-2">Kenny</div>
+              <div className="font-display text-4xl md:text-5xl font-semibold text-[#e08a68]">{scores.player1}</div>
             </div>
-            <div className="text-2xl md:text-3xl font-bold mx-3 md:mx-5">vs</div>
+            <div className="text-2xl md:text-3xl font-semibold mx-3 md:mx-5 text-[#8c8071]">vs</div>
             <div className="text-center flex-1">
-              <div className="text-sm md:text-base text-slate-400 mb-2">Katie</div>
-              <div className="text-4xl md:text-5xl font-bold text-pink-400">{scores.player2}</div>
+              <div className="text-sm md:text-base text-[#8c8071] mb-2">Katie</div>
+              <div className="font-display text-4xl md:text-5xl font-semibold text-[#6bbdb6]">{scores.player2}</div>
             </div>
             {/* Edit Button */}
             <button
               onClick={() => setShowScoreEdit(!showScoreEdit)}
-              className="absolute top-0 right-0 text-slate-500 hover:text-slate-300 text-sm px-2 py-1"
+              className="absolute top-0 right-0 text-[#8c8071] hover:text-[#c9beac] text-xs px-2 py-1 uppercase tracking-wide"
               title="Edit scores"
             >
-              ✏️
+              Edit
             </button>
           </div>
           {/* Manual Score Adjustment - Hidden by default */}
           {showScoreEdit && (
-            <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-slate-700">
-              <div className="text-xs text-slate-500 mb-2 text-center">Score not right? Adjust manually:</div>
+            <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-[#463e34]">
+              <div className="text-xs text-[#8c8071] mb-2 text-center">Score not right? Adjust manually:</div>
               <div className="flex gap-3 md:gap-4 justify-center">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setScores(prev => ({ ...prev, player1: Math.max(0, prev.player1 - 1) }))}
-                    className="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-1 px-3 rounded text-sm"
+                    className="border border-[#463e34] hover:border-[#c9beac] text-[#f3ead9] font-semibold py-1 px-3 rounded-sm text-sm"
                     title="Decrease Kenny's score"
                   >
                     −
                   </button>
-                  <span className="text-xs md:text-sm text-slate-400">Kenny</span>
+                  <span className="text-xs md:text-sm text-[#8c8071]">Kenny</span>
                   <button
                     onClick={() => setScores(prev => ({ ...prev, player1: prev.player1 + 1 }))}
-                    className="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-1 px-3 rounded text-sm"
+                    className="border border-[#463e34] hover:border-[#c9beac] text-[#f3ead9] font-semibold py-1 px-3 rounded-sm text-sm"
                     title="Increase Kenny's score"
                   >
                     +
@@ -617,15 +613,15 @@ function App() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setScores(prev => ({ ...prev, player2: Math.max(0, prev.player2 - 1) }))}
-                    className="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-1 px-3 rounded text-sm"
+                    className="border border-[#463e34] hover:border-[#c9beac] text-[#f3ead9] font-semibold py-1 px-3 rounded-sm text-sm"
                     title="Decrease Katie's score"
                   >
                     −
                   </button>
-                  <span className="text-xs md:text-sm text-slate-400">Katie</span>
+                  <span className="text-xs md:text-sm text-[#8c8071]">Katie</span>
                   <button
                     onClick={() => setScores(prev => ({ ...prev, player2: prev.player2 + 1 }))}
-                    className="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-1 px-3 rounded text-sm"
+                    className="border border-[#463e34] hover:border-[#c9beac] text-[#f3ead9] font-semibold py-1 px-3 rounded-sm text-sm"
                     title="Increase Katie's score"
                   >
                     +
@@ -637,46 +633,46 @@ function App() {
         </div>
 
         {/* Challenge Card */}
-        <div className="bg-slate-800 rounded-lg p-5 md:p-8 mb-7 md:mb-8">
-          <div className="text-sm md:text-base text-slate-400 mb-3">{challenge.phase}</div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 md:mb-5">
+        <div className="border border-[#463e34] rounded-sm p-5 md:p-8 mb-7 md:mb-8">
+          <div className="text-sm md:text-base text-[#8c8071] mb-3 uppercase tracking-wide">{challenge.phase}</div>
+          <h1 className="font-display text-3xl md:text-4xl font-semibold mb-4 md:mb-5">
             {challenge.title}
           </h1>
-          <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-4 md:mb-5">{description}</p>
-          
+          <p className="text-[#c9beac] text-lg md:text-xl leading-relaxed mb-4 md:mb-5">{description}</p>
+
           {/* Gram Master Round Scoreboard */}
           {currentGame === 1 && (
-            <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-slate-700">
-              <div className="text-xs md:text-sm text-slate-400 mb-2 md:mb-3">Round Scoreboard (Best of 3)</div>
-              <div className="bg-slate-900 rounded-lg p-3 md:p-4 mb-3 md:mb-4">
+            <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-[#463e34]">
+              <div className="text-xs md:text-sm text-[#8c8071] mb-2 md:mb-3">Round Scoreboard (Best of 3)</div>
+              <div className="bg-[#2b2620] rounded-sm p-3 md:p-4 mb-3 md:mb-4">
                 <div className="flex justify-between items-center mb-2">
-                  <div className="text-base md:text-lg font-semibold text-blue-400">Kenny</div>
-                  <div className="text-xl md:text-2xl font-bold text-blue-400">
+                  <div className="text-base md:text-lg font-semibold text-[#e08a68]">Kenny</div>
+                  <div className="font-display text-xl md:text-2xl font-semibold text-[#e08a68]">
                     {gramMasterRounds.player1.length} {gramMasterRounds.player1.length === 1 ? 'round' : 'rounds'}
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
-                  <div className="text-base md:text-lg font-semibold text-pink-400">Katie</div>
-                  <div className="text-xl md:text-2xl font-bold text-pink-400">
+                  <div className="text-base md:text-lg font-semibold text-[#6bbdb6]">Katie</div>
+                  <div className="font-display text-xl md:text-2xl font-semibold text-[#6bbdb6]">
                     {gramMasterRounds.player2.length} {gramMasterRounds.player2.length === 1 ? 'round' : 'rounds'}
                   </div>
                 </div>
               </div>
-              <div className="text-xs md:text-sm text-slate-400">
+              <div className="text-xs md:text-sm text-[#8c8071]">
                 Round {gramMasterRounds.player1.length + gramMasterRounds.player2.length + 1} of 3
               </div>
             </div>
           )}
-          
+
           {challenge.hasWordleLink && (
-            <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-slate-700">
+            <div className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-[#463e34]">
               <a
                 href="https://garlicbread.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm md:text-base"
+                className="inline-block bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-semibold py-2 px-4 rounded-sm transition-colors text-sm md:text-base"
               >
-                📚 Open Wordle Archives (New Tab)
+                Open Wordle Archives (New Tab)
               </a>
             </div>
           )}
@@ -688,13 +684,13 @@ function App() {
           <div className="grid grid-cols-2 gap-4 md:gap-5">
             <button
               onClick={() => handleWinner('player1')}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 md:py-5 px-5 md:px-6 rounded-lg transition-colors text-lg md:text-xl"
+              className="bg-[#e08a68] hover:bg-[#d47950] text-[#221e1a] font-semibold py-4 md:py-5 px-5 md:px-6 rounded-sm transition-colors text-lg md:text-xl"
             >
               Kenny Won This Round
             </button>
             <button
               onClick={() => handleWinner('player2')}
-              className="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-4 md:py-5 px-5 md:px-6 rounded-lg transition-colors text-lg md:text-xl"
+              className="bg-[#6bbdb6] hover:bg-[#57aba3] text-[#221e1a] font-semibold py-4 md:py-5 px-5 md:px-6 rounded-sm transition-colors text-lg md:text-xl"
             >
               Katie Won This Round
             </button>
@@ -704,13 +700,13 @@ function App() {
           <div className="grid grid-cols-2 gap-4 md:gap-5">
             <button
               onClick={() => handleWinner('player1')}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 md:py-5 px-5 md:px-6 rounded-lg transition-colors text-lg md:text-xl"
+              className="bg-[#e08a68] hover:bg-[#d47950] text-[#221e1a] font-semibold py-4 md:py-5 px-5 md:px-6 rounded-sm transition-colors text-lg md:text-xl"
             >
               Kenny Won
             </button>
             <button
               onClick={() => handleWinner('player2')}
-              className="bg-pink-600 hover:bg-pink-700 text-white font-semibold py-4 md:py-5 px-5 md:px-6 rounded-lg transition-colors text-lg md:text-xl"
+              className="bg-[#6bbdb6] hover:bg-[#57aba3] text-[#221e1a] font-semibold py-4 md:py-5 px-5 md:px-6 rounded-sm transition-colors text-lg md:text-xl"
             >
               Katie Won
             </button>
