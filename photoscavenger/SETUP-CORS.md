@@ -1,6 +1,8 @@
 # Setting Up CORS for Firebase Storage
 
-Your Storage rules are correct, but you also need to configure CORS to allow requests from `swift-turtle.com`.
+Your Storage rules are correct, but you also need to configure CORS to allow requests from `swiftturtlelabs.com` (formerly `swift-turtle.com`).
+
+**Note:** CORS allowlists are tied to the domain your site is hosted at, not to the Firebase Hosting project. If you move hosting to a new domain, you must re-run the `gsutil cors set` command below with the new domain in `cors.json`, or Firebase Storage requests will fail with CORS errors from the new domain.
 
 ## Quick Setup Using gsutil
 
@@ -38,22 +40,7 @@ Your Storage rules are correct, but you also need to configure CORS to allow req
 5. Go to **Configuration** tab
 6. Scroll to **CORS configuration**
 7. Click **Edit CORS configuration**
-8. Paste the contents of `cors.json`:
-   ```json
-   [
-     {
-       "origin": [
-         "https://swift-turtle.com",
-         "http://swift-turtle.com",
-         "https://www.swift-turtle.com",
-         "http://www.swift-turtle.com"
-       ],
-       "method": ["GET", "HEAD", "POST", "PUT", "DELETE"],
-       "responseHeader": ["Content-Type", "Authorization"],
-       "maxAgeSeconds": 3600
-     }
-   ]
-   ```
+8. Paste the contents of `cors.json` (see this folder for the current version, which should list the live hosting domain)
 9. Click **Save**
 
 ## What This Does
@@ -65,4 +52,4 @@ Both need to be configured for your app to work from `swift-turtle.com`.
 
 ## Verify It's Working
 
-After setting CORS, refresh your app. The CORS errors in the browser console should disappear, and `huntEndTime.json` should load successfully.
+After setting CORS, refresh your app on `swiftturtlelabs.com`. The CORS errors in the browser console should disappear, and `huntEndTime.json` should load successfully.

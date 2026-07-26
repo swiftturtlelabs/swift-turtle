@@ -18,9 +18,16 @@ jobs:
 
       - name: Generate firebase-config.js
         working-directory: ./photoscavenger
+        env:
+          FIREBASE_API_KEY: ${{ vars.PHOTOSCAVENGER_FIREBASE_API_KEY }}
         run: |
-          # Read template and replace placeholder with secret
-          sed "s/{{FIREBASE_API_KEY}}/${{ secrets.FIREBASEAPIKEY }}/g" firebase-config.template.js > firebase-config.js
+          if [ -z "$FIREBASE_API_KEY" ]; then
+            echo "Error: PHOTOSCAVENGER_FIREBASE_API_KEY repository variable is not set!"
+            exit 1
+          fi
+
+          # Read template and replace placeholder with the repository variable
+          sed "s/{{FIREBASE_API_KEY}}/$FIREBASE_API_KEY/g" firebase-config.template.js > firebase-config.js
           
           # Verify the file was created
           if [ ! -f firebase-config.js ]; then
@@ -46,5 +53,5 @@ jobs:
       - name: Show summary
         run: |
           echo "## Firebase Config Generated" >> $GITHUB_STEP_SUMMARY
-          echo "✅ firebase-config.js has been generated with the API key from GitHub secrets." >> $GITHUB_STEP_SUMMARY
+          echo "✅ firebase-config.js has been generated with the API key from the PHOTOSCAVENGER_FIREBASE_API_KEY repository variable." >> $GITHUB_STEP_SUMMARY
           echo "📥 Download the artifact to deploy it to your hosting." >> $GITHUB_STEP_SUMMARY

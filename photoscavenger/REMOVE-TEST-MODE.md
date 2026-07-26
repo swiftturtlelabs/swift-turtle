@@ -71,22 +71,7 @@ The `cors.json` file is already in your project. Apply it using one of these met
 6. Go to the **Configuration** tab
 7. Scroll to **CORS configuration**
 8. Click **Edit CORS configuration**
-9. Copy and paste the contents of `cors.json`:
-   ```json
-   [
-     {
-       "origin": [
-         "https://swift-turtle.com",
-         "http://swift-turtle.com",
-         "https://www.swift-turtle.com",
-         "http://www.swift-turtle.com"
-       ],
-       "method": ["GET", "HEAD", "POST", "PUT", "DELETE"],
-       "responseHeader": ["Content-Type", "Authorization"],
-       "maxAgeSeconds": 3600
-     }
-   ]
-   ```
+9. Copy and paste the contents of `cors.json` (see this folder for the current version, which should list the live hosting domain)
 10. Click **Save**
 
 ## Step 3: Verify

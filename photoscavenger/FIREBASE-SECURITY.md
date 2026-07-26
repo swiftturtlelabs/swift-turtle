@@ -38,9 +38,11 @@ You can add restrictions to your Firebase API key to limit where it can be used:
 1. **Application restrictions:**
    - Select "HTTP referrers (web sites)"
    - Add your domains:
-     - `https://swift-turtle.com/*`
-     - `https://www.swift-turtle.com/*`
-     - `http://swift-turtle.com/*` (if you use HTTP)
+     - `https://swiftturtlelabs.com/*`
+     - `https://www.swiftturtlelabs.com/*`
+     - `https://swift-turtle.com/*` (legacy domain, remove once fully migrated)
+
+   ⚠️ **If you previously restricted this key to `swift-turtle.com` and then moved hosting to `swiftturtlelabs.com`, requests from the new domain will be silently rejected by Google (this looks like a broken "database" in the app).** Check this list in Google Cloud Console whenever you change domains.
 
 2. **API restrictions:**
    - Select "Restrict key"
@@ -59,8 +61,8 @@ You can add restrictions to your Firebase API key to limit where it can be used:
 
 ## Current Setup
 
-- ✅ `firebase-config.js` is in `.gitignore` (keeps it out of git)
-- ✅ File is manually uploaded to server (not in repo)
+- The site is deployed via Firebase Hosting (GitHub Actions on push to `main`)
+- `photoscavenger/firebase-config.js` is committed with a `{{FIREBASE_API_KEY}}` placeholder; the `.github/workflows/firebase-hosting-merge.yml` and `firebase-hosting-pull-request.yml` workflows replace the placeholder with the `PHOTOSCAVENGER_FIREBASE_API_KEY` GitHub repository variable right before deploying, so the real key is never committed to git (see `FIREBASE-SECRET-SETUP.md`)
 - ⚠️ **Recommended:** Add API key restrictions in Google Cloud Console
 - ⚠️ **Recommended:** Review and tighten Firebase Security Rules if needed
 

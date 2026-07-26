@@ -1,6 +1,8 @@
 # Firebase Storage CORS Configuration
 
-The app is getting CORS errors when trying to access Firebase Storage from `swift-turtle.com`. You need to configure CORS in Firebase Storage.
+The app is getting CORS errors when trying to access Firebase Storage from `swiftturtlelabs.com` (formerly `swift-turtle.com`). You need to configure CORS in Firebase Storage.
+
+**Note:** If you move hosting to a new domain again, update `cors.json` with the new origin(s) and re-run `gsutil cors set` (see Option 2 below) — CORS allowlists don't update automatically when you change domains.
 
 ## Option 1: Configure CORS in Firebase Console (Recommended)
 
@@ -14,11 +16,11 @@ The app is getting CORS errors when trying to access Firebase Storage from `swif
 
 If you have `gsutil` installed (part of Google Cloud SDK):
 
-1. Create a CORS configuration file `cors.json`:
+1. Use the `cors.json` file already in this folder (kept in sync with the current hosting domain):
 ```json
 [
   {
-    "origin": ["https://swift-turtle.com", "http://swift-turtle.com"],
+    "origin": ["https://swiftturtlelabs.com", "http://swiftturtlelabs.com", "https://www.swiftturtlelabs.com"],
     "method": ["GET", "HEAD"],
     "responseHeader": ["Content-Type"],
     "maxAgeSeconds": 3600

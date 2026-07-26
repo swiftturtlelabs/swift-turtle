@@ -13,6 +13,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Inject Firebase API key into photoscavenger config
+        working-directory: ./photoscavenger
+        env:
+          FIREBASE_API_KEY: ${{ vars.PHOTOSCAVENGER_FIREBASE_API_KEY }}
+        run: |
+          if [ -z "$FIREBASE_API_KEY" ]; then
+            echo "Error: PHOTOSCAVENGER_FIREBASE_API_KEY repository variable is not set!"
+            exit 1
+          fi
+          sed "s/{{FIREBASE_API_KEY}}/$FIREBASE_API_KEY/g" firebase-config.template.js > firebase-config.js
+          if grep -q "{{FIREBASE_API_KEY}}" firebase-config.js; then
+            echo "Error: API key placeholder was not replaced!"
+            exit 1
+          fi
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

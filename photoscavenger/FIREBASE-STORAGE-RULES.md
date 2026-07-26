@@ -25,23 +25,13 @@ service firebase.storage {
 
 ## Step 2: Configure CORS
 
-Even with read rules, you need to configure CORS to allow requests from `swift-turtle.com`.
+Even with read rules, you need to configure CORS to allow requests from `swiftturtlelabs.com` (formerly `swift-turtle.com`).
 
 ### Option A: Using gsutil (Recommended)
 
 1. Install [Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 2. Authenticate: `gcloud auth login`
-3. Create `cors.json`:
-```json
-[
-  {
-    "origin": ["https://swift-turtle.com", "http://swift-turtle.com", "https://www.swift-turtle.com"],
-    "method": ["GET", "HEAD"],
-    "responseHeader": ["Content-Type"],
-    "maxAgeSeconds": 3600
-  }
-]
-```
+3. Use the `cors.json` file already in this folder (update it first if the hosting domain has changed)
 
 4. Apply CORS:
 ```bash
