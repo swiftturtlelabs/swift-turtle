@@ -20,8 +20,8 @@
             --cream: #f1e8d8;
             --teal: #1f6f6b;
             --teal-dark: #14504d;
-            --mom: #b8524a;
-            --mom-dark: #8f3f39;
+            --mom: #d4638a;
+            --mom-dark: #b04e72;
             --dad: #34587a;
             --dad-dark: #263f59;
             --muted: #7a6f60;
@@ -46,7 +46,7 @@
         }
 
         body.theme-mom {
-            background-color: #f7e7e1;
+            background-color: #f7e6ee;
         }
 
         body.theme-dad {
@@ -739,15 +739,15 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📸 Photo Scavenger Hunt 📸</h1>
+            <h1>Photo Scavenger Hunt</h1>
             <p id="instructionsText">Go around and take photos with as many of the below items as you can. Each photo should be a selfie with the whole team and the item in the list. Enter the time below that everyone should be done by. At that time everybody will meet up at Red Robins. Loser buys everyone milkshakes!</p>
             <div class="storage-status error" id="storageStatus" style="display: none;"></div>
         </div>
 
         <div class="team-selector-section">
             <div class="team-selector-global" id="teamSelectorButtons">
-                <button class="team-btn-global mom" id="teamBtnMom" onclick="selectTeamGlobal('mom')">👩 Mom Team</button>
-                <button class="team-btn-global dad" id="teamBtnDad" onclick="selectTeamGlobal('dad')">👨 Dad Team</button>
+                <button class="team-btn-global mom" id="teamBtnMom" onclick="selectTeamGlobal('mom')">Mom Team</button>
+                <button class="team-btn-global dad" id="teamBtnDad" onclick="selectTeamGlobal('dad')">Dad Team</button>
             </div>
             <div class="team-title-display" id="teamTitleDisplay">
                 <h2 id="teamTitleText"></h2>
@@ -772,7 +772,7 @@
         </div>
 
         <div class="hunt-ended" id="huntEnded">
-            <h2>🎉 Hunt is Over! 🎉</h2>
+            <h2>Hunt is Over!</h2>
             <p>Time to see the results!</p>
             <button class="btn btn-danger" onclick="clearHunt()" style="margin-top: 15px;">Clear Hunt</button>
         </div>
@@ -786,12 +786,12 @@
             <h2 class="scores-title">Final Scores</h2>
             <div class="scores-container">
                 <div class="team-score mom">
-                    <h3>👩 Mom Team</h3>
+                    <h3>Mom Team</h3>
                     <div class="score-number" id="momScore">0</div>
                     <div>photos</div>
                 </div>
                 <div class="team-score dad">
-                    <h3>👨 Dad Team</h3>
+                    <h3>Dad Team</h3>
                     <div class="score-number" id="dadScore">0</div>
                     <div>photos</div>
                 </div>
@@ -852,7 +852,7 @@
                 } catch (error) {
                     console.error('Firebase initialization error:', error);
                     useFirebase = false;
-                    document.getElementById('storageStatus').textContent = '⚠️ Cloud Storage Error - Using Local Storage';
+                    document.getElementById('storageStatus').textContent = 'Cloud Storage Error - Using Local Storage';
                     document.getElementById('storageStatus').style.display = 'inline-block';
                 }
             } else {
@@ -1189,7 +1189,7 @@
             const huntEnded = endTime && endTime <= new Date();
             
             if (huntEnded) {
-                instructionsEl.textContent = '🎉 Hunt is complete! Scroll down to see the results and find out who won! 🎉';
+                instructionsEl.textContent = 'Hunt is complete! Scroll down to see the results and find out who won!';
             } else if (huntActive) {
                 instructionsEl.textContent = 'The hunt is on! Take selfies with your whole team and the items below. Meet at Red Robins when time is up!';
             } else {
@@ -1242,7 +1242,7 @@
                         ${huntActive ? `
                             <div>
                                 <input type="file" accept="image/*" capture="environment" class="file-input" id="file-${item.id}" onchange="uploadPhoto('${item.id}', this)" />
-                                <button class="upload-btn" onclick="document.getElementById('file-${item.id}').click()">📷 Add Photo</button>
+                                <button class="upload-btn" onclick="document.getElementById('file-${item.id}').click()">Add Photo</button>
                             </div>
                         ` : ''}
                     </div>
@@ -1254,13 +1254,13 @@
             if (finishedItems.length > 0) {
                 const finishedSection = document.createElement('div');
                 finishedSection.className = 'finished-section';
-                finishedSection.innerHTML = '<h2>✅ Finished</h2>';
+                finishedSection.innerHTML = '<h2>Finished</h2>';
                 
                 finishedItems.forEach(item => {
                     const photos = getPhotosForItem(item.id);
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'item finished';
-                    const buttonText = huntActive ? '📷 Change Photo' : '';
+                    const buttonText = huntActive ? 'Change Photo' : '';
                     itemDiv.innerHTML = `
                         <div class="item-info">
                             <div class="item-title">${item.title}</div>
@@ -1297,10 +1297,10 @@
             titleDisplay.classList.add(team);
             
             if (team === 'mom') {
-                document.getElementById('teamTitleText').textContent = '👩 Mom Team';
+                document.getElementById('teamTitleText').textContent = 'Mom Team';
                 document.body.className = 'theme-mom';
             } else {
-                document.getElementById('teamTitleText').textContent = '👨 Dad Team';
+                document.getElementById('teamTitleText').textContent = 'Dad Team';
                 document.body.className = 'theme-dad';
             }
             
@@ -1405,7 +1405,7 @@
                     // Show upload progress
                     const uploadBtn = input.nextElementSibling;
                     const originalText = uploadBtn.textContent;
-                    uploadBtn.textContent = '⏳ Uploading...';
+                    uploadBtn.textContent = 'Uploading...';
                     uploadBtn.disabled = true;
 
                     const snapshot = await photoRef.put(fileToUpload);
@@ -1435,7 +1435,7 @@
                     console.error('Upload error:', error);
                     alert('Failed to upload photo. Please try again.');
                     const uploadBtn = input.nextElementSibling;
-                    uploadBtn.textContent = '📷 Add Photo';
+                    uploadBtn.textContent = 'Add Photo';
                     uploadBtn.disabled = false;
                 }
             } else {
@@ -1650,15 +1650,15 @@
             const milkshakeEl = document.getElementById('milkshakeMessage');
             
             if (momCount > dadCount) {
-                winnerEl.textContent = '🎉 Mom Team Wins! 🎉';
+                winnerEl.textContent = 'Mom Team Wins!';
                 winnerEl.className = 'winner-celebration mom';
-                milkshakeEl.textContent = '👨 Dad Team, time to buy the milkshakes!';
+                milkshakeEl.textContent = 'Dad Team, time to buy the milkshakes!';
             } else if (dadCount > momCount) {
-                winnerEl.textContent = '🎉 Dad Team Wins! 🎉';
+                winnerEl.textContent = 'Dad Team Wins!';
                 winnerEl.className = 'winner-celebration dad';
-                milkshakeEl.textContent = '👩 Mom Team, time to buy the milkshakes!';
+                milkshakeEl.textContent = 'Mom Team, time to buy the milkshakes!';
             } else if (momCount === dadCount && momCount > 0) {
-                winnerEl.textContent = '🤝 It\'s a Tie! 🤝';
+                winnerEl.textContent = 'It\'s a Tie!';
                 winnerEl.className = 'winner-celebration';
                 milkshakeEl.textContent = 'Everyone buys their own milkshakes!';
             } else {
@@ -1702,13 +1702,13 @@
                         html += `
                             <div class="photo-item-group-photo mom">
                                 <img src="${momPhotos[0].data}" alt="${item.title} - Mom Team" onerror="handleImageError('${momPhotos[0].id}', '${item.id}', 'mom')" />
-                                <div class="photo-item-group-photo-label mom">👩 Mom Team</div>
+                                <div class="photo-item-group-photo-label mom">Mom Team</div>
                             </div>
                         `;
                     } else {
                         html += `
                             <div class="photo-item-group-photo">
-                                <div class="photo-item-group-no-photos">👩 Mom Team - No photo</div>
+                                <div class="photo-item-group-no-photos">Mom Team - No photo</div>
                             </div>
                         `;
                     }
@@ -1718,13 +1718,13 @@
                         html += `
                             <div class="photo-item-group-photo dad">
                                 <img src="${dadPhotos[0].data}" alt="${item.title} - Dad Team" onerror="handleImageError('${dadPhotos[0].id}', '${item.id}', 'dad')" />
-                                <div class="photo-item-group-photo-label dad">👨 Dad Team</div>
+                                <div class="photo-item-group-photo-label dad">Dad Team</div>
                             </div>
                         `;
                     } else {
                         html += `
                             <div class="photo-item-group-photo">
-                                <div class="photo-item-group-no-photos">👨 Dad Team - No photo</div>
+                                <div class="photo-item-group-no-photos">Dad Team - No photo</div>
                             </div>
                         `;
                     }
@@ -1749,7 +1749,7 @@
                                 <div class="photo-item">
                                     <div class="photo-item-header">
                                         <div class="photo-item-title">${item.title}</div>
-                                        <div class="photo-item-team ${photo.team}">${photo.team === 'mom' ? '👩 Mom Team' : '👨 Dad Team'}</div>
+                                        <div class="photo-item-team ${photo.team}">${photo.team === 'mom' ? 'Mom Team' : 'Dad Team'}</div>
                                     </div>
                                     <img src="${photo.data}" alt="${item.title}" class="photo-item-image" onerror="handleImageError('${photo.id}', '${item.id}', '${photo.team}')" />
                                 </div>
