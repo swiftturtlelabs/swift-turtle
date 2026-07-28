@@ -232,146 +232,18 @@
 
         .time-input-group {
             display: flex;
-            flex-direction: column;
-            gap: 14px;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-
-        .time-input-group > label,
-        .duration-label {
-            font-weight: 700;
-            font-size: 0.95em;
-        }
-
-        .duration-track {
-            width: min(100%, 420px);
-            height: 10px;
-            border: 2px solid var(--ink);
-            border-radius: 999px;
-            background: #ebe3d4;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .duration-track::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                90deg,
-                var(--teal) 0 14px,
-                transparent 14px 28px
-            );
-            animation: march-forward 0.8s linear infinite;
-            opacity: 0.35;
-        }
-
-        body.theme-mom .duration-track::before {
-            background: repeating-linear-gradient(
-                90deg,
-                var(--mom) 0 14px,
-                transparent 14px 28px
-            );
-        }
-
-        body.theme-dad .duration-track::before {
-            background: repeating-linear-gradient(
-                90deg,
-                var(--dad) 0 14px,
-                transparent 14px 28px
-            );
-        }
-
-        @keyframes march-forward {
-            from { transform: translateX(-28px); }
-            to { transform: translateX(0); }
-        }
-
-        .duration-options {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .duration-btn {
-            padding: 10px 14px;
-            border: 2px solid var(--ink);
-            border-radius: 8px;
-            background: var(--paper);
-            color: var(--ink);
-            font-family: 'Nunito', sans-serif;
-            font-weight: 700;
-            font-size: 0.95em;
-            cursor: pointer;
-            box-shadow: 2px 2px 0 rgba(43, 38, 32, 0.2);
-            transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
-        }
-
-        .duration-btn:hover {
-            transform: translate(-1px, -1px);
-            box-shadow: 3px 3px 0 rgba(43, 38, 32, 0.25);
-        }
-
-        .duration-btn.active {
-            background: var(--teal);
-            color: white;
-        }
-
-        body.theme-mom .duration-btn.active {
-            background: var(--mom);
-        }
-
-        body.theme-dad .duration-btn.active {
-            background: var(--dad);
-        }
-
-        .end-time-preview {
-            font-size: 1.05em;
-            font-weight: 700;
-            color: var(--ink);
-            min-height: 1.4em;
-        }
-
-        .end-time-preview span {
-            color: var(--teal);
-        }
-
-        body.theme-mom .end-time-preview span {
-            color: var(--mom);
-        }
-
-        body.theme-dad .end-time-preview span {
-            color: var(--dad);
-        }
-
-        .custom-time-toggle {
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-family: 'Nunito', sans-serif;
-            font-size: 0.85em;
-            font-weight: 700;
-            text-decoration: underline;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .custom-time-row {
-            display: none;
             gap: 10px;
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 15px;
         }
 
-        .custom-time-row.show {
-            display: flex;
+        .time-input-group label {
+            font-weight: 700;
         }
 
-        .time-input-group input[type="datetime-local"] {
+        .time-input-group input {
             padding: 9px 12px;
             border: 2px solid var(--ink);
             border-radius: 8px;
@@ -379,11 +251,6 @@
             font-family: 'Nunito', sans-serif;
             background: var(--paper);
             color: var(--ink);
-        }
-
-        .start-row {
-            display: flex;
-            justify-content: center;
         }
 
         .btn {
@@ -904,24 +771,9 @@
 
         <div class="timer-section">
             <div class="time-input-group" id="timeInputGroup">
-                <div class="duration-label">How long should the hunt last?</div>
-                <div class="duration-track" aria-hidden="true"></div>
-                <div class="duration-options" id="durationOptions">
-                    <button type="button" class="duration-btn" data-minutes="60" onclick="selectDuration(60)">1 hr</button>
-                    <button type="button" class="duration-btn" data-minutes="90" onclick="selectDuration(90)">1.5 hr</button>
-                    <button type="button" class="duration-btn" data-minutes="120" onclick="selectDuration(120)">2 hr</button>
-                    <button type="button" class="duration-btn" data-minutes="150" onclick="selectDuration(150)">2.5 hr</button>
-                    <button type="button" class="duration-btn" data-minutes="180" onclick="selectDuration(180)">3 hr</button>
-                </div>
-                <div class="end-time-preview" id="endTimePreview">Pick a duration to continue</div>
-                <button type="button" class="custom-time-toggle" id="customTimeToggle" onclick="toggleCustomTime()">Or pick an exact end time</button>
-                <div class="custom-time-row" id="customTimeRow">
-                    <label for="endTime">Ends at:</label>
-                    <input type="datetime-local" id="endTime" />
-                </div>
-                <div class="start-row">
-                    <button class="btn" id="startGameBtn" onclick="setEndTime()" disabled>Start Game</button>
-                </div>
+                <label for="endTime">Hunt Ends At:</label>
+                <input type="datetime-local" id="endTime" />
+                <button class="btn" id="startGameBtn" onclick="setEndTime()" disabled>Start Game</button>
             </div>
             <div class="countdown" id="countdown">
                 <div class="countdown-label">Time Remaining:</div>
@@ -1268,58 +1120,21 @@
                 .slice(0, 16);
         }
 
-        function formatEndTimePreview(date) {
-            return date.toLocaleString([], {
-                weekday: 'short',
-                hour: 'numeric',
-                minute: '2-digit'
-            });
-        }
-
         // Enable Start Game only when a date/time is set
         function updateStartGameButton() {
             const input = document.getElementById('endTime');
             const startBtn = document.getElementById('startGameBtn');
-            const preview = document.getElementById('endTimePreview');
             if (!input || !startBtn) return;
             startBtn.disabled = !input.value;
-            if (preview) {
-                if (input.value) {
-                    const end = new Date(input.value);
-                    preview.innerHTML = `Ends at <span>${formatEndTimePreview(end)}</span>`;
-                } else {
-                    preview.textContent = 'Pick a duration to continue';
-                }
-            }
         }
 
-        function clearDurationSelection() {
-            document.querySelectorAll('.duration-btn').forEach(btn => btn.classList.remove('active'));
-        }
-
-        // Pick a duration looking forward from now
-        function selectDuration(minutes) {
+        // Default empty picker to 1.5 hours from now when opened
+        function defaultEndTimeIfEmpty() {
             const input = document.getElementById('endTime');
-            const end = new Date(Date.now() + minutes * 60 * 1000);
-            input.value = toLocalDateTimeValue(end);
-            clearDurationSelection();
-            const activeBtn = document.querySelector(`.duration-btn[data-minutes="${minutes}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
+            if (!input || input.value) return;
+            const defaultEnd = new Date(Date.now() + 90 * 60 * 1000);
+            input.value = toLocalDateTimeValue(defaultEnd);
             updateStartGameButton();
-        }
-
-        function toggleCustomTime() {
-            const row = document.getElementById('customTimeRow');
-            const toggle = document.getElementById('customTimeToggle');
-            const showing = row.classList.toggle('show');
-            toggle.textContent = showing ? 'Hide exact time picker' : 'Or pick an exact end time';
-            if (showing) {
-                const input = document.getElementById('endTime');
-                if (!input.value) {
-                    selectDuration(90);
-                }
-                input.focus();
-            }
         }
 
         // Set end time
@@ -1328,7 +1143,7 @@
             const timeValue = input.value;
             
             if (!timeValue) {
-                alert('Please pick how long the hunt should last!');
+                alert('Please select an end time!');
                 return;
             }
 
@@ -1358,9 +1173,6 @@
             if (endTime) {
                 const input = document.getElementById('endTime');
                 input.value = toLocalDateTimeValue(endTime);
-                clearDurationSelection();
-                document.getElementById('customTimeRow').classList.add('show');
-                document.getElementById('customTimeToggle').textContent = 'Hide exact time picker';
             }
             updateStartGameButton();
         }
@@ -2164,9 +1976,6 @@
             document.getElementById('photosGallery').classList.remove('show');
             document.getElementById('scavengerList').style.display = 'block';
             document.getElementById('endTime').value = '';
-            clearDurationSelection();
-            document.getElementById('customTimeRow').classList.remove('show');
-            document.getElementById('customTimeToggle').textContent = 'Or pick an exact end time';
             updateStartGameButton();
 
             // Reset instructions
@@ -2177,18 +1986,13 @@
             updateScores();
         }
 
-        // Wire up exact-time picker + default duration
+        // Wire up date/time picker behavior
         const endTimeInput = document.getElementById('endTime');
-        endTimeInput.addEventListener('input', () => {
-            clearDurationSelection();
-            updateStartGameButton();
-        });
-        endTimeInput.addEventListener('change', () => {
-            clearDurationSelection();
-            updateStartGameButton();
-        });
-        // Default to 1.5 hours looking forward (no spinning popup)
-        selectDuration(90);
+        endTimeInput.addEventListener('focus', defaultEndTimeIfEmpty);
+        endTimeInput.addEventListener('click', defaultEndTimeIfEmpty);
+        endTimeInput.addEventListener('input', updateStartGameButton);
+        endTimeInput.addEventListener('change', updateStartGameButton);
+        updateStartGameButton();
 
         // Initialize on load
         init();
