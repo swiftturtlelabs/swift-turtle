@@ -7,6 +7,9 @@ export default defineConfig({
   base: '/couplegames/',
   build: {
     outDir: '../docs/couplegames',
+    rollupOptions: {
+      input: './vite-index.html',
+    },
   },
   test: {
     globals: true,

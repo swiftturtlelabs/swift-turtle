@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite vite-index.html",
     "build": "vite build",
+    "postbuild": "powershell -Command \"Copy-Item -Force ../docs/couplegames/vite-index.html ./index.html; Copy-Item -Force ../docs/couplegames/assets/* ./assets/\"",
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",

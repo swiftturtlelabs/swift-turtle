@@ -294,7 +294,7 @@ function App() {
   // Intro screen
   if (!gameStarted) {
     return (
-      <div className="h-screen overflow-hidden bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
+      <div className="h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10">
         <div className="max-w-2xl w-full text-center">
           {/* Back button - hidden on intro since there's nowhere to go back to */}
           <h1 className="font-display text-5xl md:text-6xl font-semibold mb-5 md:mb-6 tracking-tight">Couple's Challenge</h1>
@@ -340,7 +340,7 @@ function App() {
   // Transition page between halves
   if (currentGame === -1) {
     return (
-      <div className="h-screen overflow-hidden bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
+      <div className="h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10">
         <div className="max-w-2xl w-full text-center">
           <h1 className="font-display text-4xl md:text-5xl font-semibold mb-5 md:mb-6">1st Half Complete!</h1>
           <p className="text-xl md:text-2xl text-[#c9beac] mb-7 md:mb-8 leading-relaxed">
@@ -392,7 +392,7 @@ function App() {
     const winnerColor = winner === 'player1' ? 'blue' : winner === 'player2' ? 'pink' : null
     
     return (
-      <div className="h-screen overflow-hidden bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
+      <div className="h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10">
         <div className="max-w-2xl w-full">
           <h1 className="font-display text-3xl md:text-4xl font-semibold text-center mb-6 md:mb-8">Final Results</h1>
 
@@ -529,7 +529,7 @@ function App() {
   }
 
   return (
-    <div className="h-screen overflow-hidden bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8">
+    <div className="h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10">
       <div className="max-w-2xl w-full">
         {/* Back Button */}
         {currentGame > 0 && (
