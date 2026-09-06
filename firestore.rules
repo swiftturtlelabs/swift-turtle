@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /couplegamesSessions/{sessionId} {
+      allow read, write: if true;
+
+      match /photos/{photoId} {
+        allow read, write: if true;
+      }
+    }
+
+    match /couplegamesSessions/_timeProbe {
+      allow read, write, delete: if true;
+    }
+  }
+}

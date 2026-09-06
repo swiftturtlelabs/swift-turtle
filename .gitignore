@@ -21,5 +21,13 @@ bin-release/
 # FTP credentials (contains sensitive login info)
 photoscavenger/ftp-config.json
 
+# Local-only billing kill-switch ops cheat sheet (IDs + adjust commands)
+photoscavenger/BILLING-KILL-SWITCH.local.md
+
 # Firebase CLI local cache/state
 .firebase/
+
+# Couplegames build output (built in CI)
+couplegames/dist/
+couplegames/node_modules/
+couplegames/.env.local

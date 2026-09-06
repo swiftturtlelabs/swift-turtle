@@ -20,7 +20,9 @@
       "**/tailwind.config.js",
       "couplegames/src/**",
       "couplegames/e2e/**",
-      "couplegames/src/test/**"
+      "couplegames/src/test/**",
+      "couplegames/dist/**",
+      "couplegames/node_modules/**"
     ]
   }
 }

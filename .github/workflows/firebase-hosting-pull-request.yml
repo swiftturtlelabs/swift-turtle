@@ -27,6 +27,16 @@ jobs:
             echo "Error: API key placeholder was not replaced!"
             exit 1
           fi
+      - name: Build couplegames
+        working-directory: ./couplegames
+        env:
+          VITE_FIREBASE_API_KEY: ${{ vars.PHOTOSCAVENGER_FIREBASE_API_KEY }}
+        run: |
+          npm ci
+          npm run build
+          cp dist/index.html index.html
+          rm -rf assets
+          cp -r dist/assets assets
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,948 @@
+﻿
+> couplegames@2.0.0 test:run
+> vitest run
+
+
+ RUN  v2.1.9 C:/Repos/swift-turtle/couplegames
+
+ Γ¥» src/session/gameLogic.test.js (7 tests | 1 failed) 10ms
+   ├ù gameLogic > picks closest timer stop 5ms
+     ΓåÆ expected 'player1' to be 'player2' // Object.is equality
+ Γ¥» src/App.test.jsx (9 tests | 2 failed) 2509ms
+   ├ù App Component > Setup and start flow > starts local game with default names 274ms
+     ΓåÆ Unable to find an element with the text: Kenny. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10 "[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-2xl w-full"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex justify-between text-sm text-[#8c8071] mb-2"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mGame [0m
+              [0m1[0m
+              [0m of [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0m0[0m
+              [0m completed[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"w-full bg-[#332c25] h-2"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"bg-[#c96a4d] h-2 transition-all"[39m
+              [33mstyle[39m=[32m"width: 0%;"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex justify-between items-center border border-[#463e34] rounded-sm p-4"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-center flex-1"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+              [36m>[39m
+                [0m≡ƒÄ»[0m
+                [0m [0m
+                [0mKenny[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                [33mstyle[39m=[32m"color: rgb(224, 138, 104);"[39m
+              [36m>[39m
+                [0m0[0m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-2xl md:text-3xl font-semibold mx-3 md:mx-5 text-[#8c8071]"[39m
+            [36m>[39m
+              [0mvs[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-center flex-1"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+              [36m>[39m
+                [0mΓ£¿[0m
+                [0m [0m
+                [0mKatie[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                [33mstyle[39m=[32m"color: rgb(107, 189, 182);"[39m
+              [36m>[39m
+                [0m0[0m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"border border-[#463e34] rounded-sm p-5 md:p-6 mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-[#8c8071] mb-2 uppercase tracking-wide"[39m
+          [36m>[39m
+            [0m1st Half[0m
+          [36m</div>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"font-display text-3xl font-semibold mb-3"[39m
+          [36m>[39m
+            [0mPerfect Cut[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-[#c9beac] leading-relaxed"[39m
+          [36m>[39m
+            [0mCut a piece of paper into what you think is a perfect 4-inch square. Overlay them to see who is more accurate.[0m
+          [36m</p>[39m
+          [36m<form[39m
+            [33mclass[39m=[32m"mt-4 pt-4 border-t border-[#463e34]"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"block text-sm text-[#c9beac] mb-2"[39m
+            [36m>[39m
+              [0mSide length[0m
+              [0m ([0m
+              [0min[0m
+              [0m)[0m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-[#8c8071]"[39m
+              [36m>[39m
+                [0m ΓÇö target: [0m
+                [0m4[0m
+                [0min[0m
+              [36m</span>[39m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex gap-2"[39m
+            [36m>[39m
+              [36m<input[39m
+                [33mclass[39m=[32m"flex-1 bg-[#2b2620] border border-[#463e34] rounded-sm px-3 py-2 text-[#f3ead9]"[39m
+                [33mplaceholder[39m=[32m"Enter in"[39m
+                [33mstep[39m=[32m"any"[39m
+                [33mtype[39m=[32m"number"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-semibold px-4 rounded-sm"[39m
+                [33mtype[39m=[32m"submit"[39m
+              [36m>[39m
+                [0mSubmit[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</form>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+   ├ù App Component > Setup and start flow > allows customizing player names 1473ms
+     ΓåÆ Unable to find an element with the text: Alex. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10 "[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-2xl w-full"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex justify-between text-sm text-[#8c8071] mb-2"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mGame [0m
+              [0m1[0m
+              [0m of [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0m0[0m
+              [0m completed[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"w-full bg-[#332c25] h-2"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"bg-[#c96a4d] h-2 transition-all"[39m
+              [33mstyle[39m=[32m"width: 0%;"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex justify-between items-center border border-[#463e34] rounded-sm p-4"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-center flex-1"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+              [36m>[39m
+                [0m≡ƒÄ»[0m
+                [0m [0m
+                [0mAlex[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                [33mstyle[39m=[32m"color: rgb(224, 138, 104);"[39m
+              [36m>[39m
+                [0m0[0m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-2xl md:text-3xl font-semibold mx-3 md:mx-5 text-[#8c8071]"[39m
+            [36m>[39m
+              [0mvs[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-center flex-1"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+              [36m>[39m
+                [0mΓ£¿[0m
+                [0m [0m
+                [0mSam[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                [33mstyle[39m=[32m"color: rgb(107, 189, 182);"[39m
+              [36m>[39m
+                [0m0[0m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"border border-[#463e34] rounded-sm p-5 md:p-6 mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-[#8c8071] mb-2 uppercase tracking-wide"[39m
+          [36m>[39m
+            [0m1st Half[0m
+          [36m</div>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"font-display text-3xl font-semibold mb-3"[39m
+          [36m>[39m
+            [0mPerfect Cut[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-[#c9beac] leading-relaxed"[39m
+          [36m>[39m
+            [0mCut a piece of paper into what you think is a perfect 4-inch square. Overlay them to see who is more accurate.[0m
+          [36m</p>[39m
+          [36m<form[39m
+            [33mclass[39m=[32m"mt-4 pt-4 border-t border-[#463e34]"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"block text-sm text-[#c9beac] mb-2"[39m
+            [36m>[39m
+              [0mSide length[0m
+              [0m ([0m
+              [0min[0m
+              [0m)[0m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-[#8c8071]"[39m
+              [36m>[39m
+                [0m ΓÇö target: [0m
+                [0m4[0m
+                [0min[0m
+              [36m</span>[39m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex gap-2"[39m
+            [36m>[39m
+              [36m<input[39m
+                [33mclass[39m=[32m"flex-1 bg-[#2b2620] border border-[#463e34] rounded-sm px-3 py-2 text-[#f3ead9]"[39m
+                [33mplaceholder[39m=[32m"Enter in"[39m
+                [33mstep[39m=[32m"any"[39m
+                [33mtype[39m=[32m"number"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-semibold px-4 rounded-sm"[39m
+                [33mtype[39m=[32m"submit"[39m
+              [36m>[39m
+                [0mSubmit[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</form>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10 "[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"max-w-2xl w-full"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-6"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex justify-between text-sm text-[#8c8071] mb-2"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mGame [0m
+                [0m1[0m
+                [0m of [0m
+                [0m10[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m0[0m
+                [0m completed[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"w-full bg-[#332c25] h-2"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"bg-[#c96a4d] h-2 transition-all"[39m
+                [33mstyle[39m=[32m"width: 0%;"[39m
+              [36m/>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-6"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex justify-between items-center border border-[#463e34] rounded-sm p-4"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-center flex-1"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+                [36m>[39m
+                  [0m≡ƒÄ»[0m
+                  [0m [0m
+                  [0mAlex[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                  [33mstyle[39m=[32m"color: rgb(224, 138, 104);"[39m
+                [36m>[39m
+                  [0m0[0m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-2xl md:text-3xl font-semibold mx-3 md:mx-5 text-[#8c8071]"[39m
+              [36m>[39m
+                [0mvs[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-center flex-1"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+                [36m>[39m
+                  [0mΓ£¿[0m
+                  [0m [0m
+                  [0mSam[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                  [33mstyle[39m=[32m"color: rgb(107, 189, 182);"[39m
+                [36m>[39m
+                  [0m0[0m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"border border-[#463e34] rounded-sm p-5 md:p-6 mb-6"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-sm text-[#8c8071] mb-2 uppercase tracking-wide"[39m
+            [36m>[39m
+              [0m1st Half[0m
+            [36m</div>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"font-display text-3xl font-semibold mb-3"[39m
+            [36m>[39m
+              [0mPerfect Cut[0m
+            [36m</h1>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-[#c9beac] leading-relaxed"[39m
+            [36m>[39m
+              [0mCut a piece of paper into what you think is a perfect 4-inch square. Overlay them to see who is more accurate.[0m
+            [36m</p>[39m
+            [36m<form[39m
+              [33mclass[39m=[32m"mt-4 pt-4 border-t border-[#463e34]"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"block text-sm text-[#c9beac] mb-2"[39m
+              [36m>[39m
+                [0mSide length[0m
+                [0m ([0m
+                [0min[0m
+                [0m)[0m
+                [36m<span[39m
+                  [33mclass[39m=[32m"text-[#8c8071]"[39m
+                [36m>[39m
+                  [0m ΓÇö target: [0m
+                  [0m4[0m
+                  [0min[0m
+                [36m</span>[39m
+              [36m</label>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"flex gap-2"[39m
+              [36m>[39m
+                [36m<input[39m
+                  [33mclass[39m=[32m"flex-1 bg-[#2b2620] border border-[#463e34] rounded-sm px-3 py-2 text-[#f3ead9]"[39m
+                  [33mplaceholder[39m=[32m"Enter in"[39m
+                  [33mstep[39m=[32m"any"[39m
+                  [33mtype[39m=[32m"number"[39m
+                  [33mvalue[39m=[32m""[39m
+                [36m/>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-semibold px-4 rounded-sm"[39m
+                  [33mtype[39m=[32m"submit"[39m
+                [36m>[39m
+                  [0mSubmit[0m
+                [36m</button>[39m
+              [36m</div>[39m
+            [36m</form>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+
+node.exe : ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Tests 3 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»...ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+ FAIL  src/App.test.jsx > App Component > Setup and start flow > starts local game with default names
+TestingLibraryElementError: Unable to find an element with the text: Kenny. This could be because the text is broken 
+up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more 
+flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center 
+justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10 "[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-2xl w-full"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex justify-between text-sm text-[#8c8071] mb-2"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mGame [0m
+              [0m1[0m
+              [0m of [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0m0[0m
+              [0m completed[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"w-full bg-[#332c25] h-2"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"bg-[#c96a4d] h-2 transition-all"[39m
+              [33mstyle[39m=[32m"width: 0%;"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex justify-between items-center border border-[#463e34] rounded-sm p-4"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-center flex-1"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+              [36m>[39m
+                [0m≡ƒÄ»[0m
+                [0m [0m
+                [0mKenny[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                [33mstyle[39m=[32m"color: rgb(224, 138, 104);"[39m
+              [36m>[39m
+                [0m0[0m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-2xl md:text-3xl font-semibold mx-3 md:mx-5 text-[#8c8071]"[39m
+            [36m>[39m
+              [0mvs[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-center flex-1"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+              [36m>[39m
+                [0mΓ£¿[0m
+                [0m [0m
+                [0mKatie[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                [33mstyle[39m=[32m"color: rgb(107, 189, 182);"[39m
+              [36m>[39m
+                [0m0[0m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"border border-[#463e34] rounded-sm p-5 md:p-6 mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-[#8c8071] mb-2 uppercase tracking-wide"[39m
+          [36m>[39m
+            [0m1st Half[0m
+          [36m</div>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"font-display text-3xl font-semibold mb-3"[39m
+          [36m>[39m
+            [0mPerfect Cut[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-[#c9beac] leading-relaxed"[39m
+          [36m>[39m
+            [0mCut a piece of paper into what you think is a perfect 4-inch square. Overlay them to see who is more 
+accurate.[0m
+          [36m</p>[39m
+          [36m<form[39m
+            [33mclass[39m=[32m"mt-4 pt-4 border-t border-[#463e34]"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"block text-sm text-[#c9beac] mb-2"[39m
+            [36m>[39m
+              [0mSide length[0m
+              [0m ([0m
+              [0min[0m
+              [0m)[0m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-[#8c8071]"[39m
+              [36m>[39m
+                [0m ΓÇö target: [0m
+                [0m4[0m
+                [0min[0m
+              [36m</span>[39m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex gap-2"[39m
+            [36m>[39m
+              [36m<input[39m
+                [33mclass[39m=[32m"flex-1 bg-[#2b2620] border border-[#463e34] rounded-sm px-3 py-2 
+text-[#f3ead9]"[39m
+                [33mplaceholder[39m=[32m"Enter in"[39m
+                [33mstep[39m=[32m"any"[39m
+                [33mtype[39m=[32m"number"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-semibold px-4 
+rounded-sm"[39m
+                [33mtype[39m=[32m"submit"[39m
+              [36m>[39m
+                [0mSubmit[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</form>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ Γ¥» Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ Γ¥» node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ Γ¥» node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ Γ¥» src/App.test.jsx:39:21
+     37|         expect(screen.getByText(/Game 1 of 10/i)).toBeInTheDocument()
+     38|       })
+     39|       expect(screen.getByText('Kenny')).toBeInTheDocument()
+       |                     ^
+     40|       expect(screen.getByText('Katie')).toBeInTheDocument()
+     41|     })
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/3]ΓÄ»
+
+ FAIL  src/App.test.jsx > App Component > Setup and start flow > allows customizing player names
+TestingLibraryElementError: Unable to find an element with the text: Alex. This could be because the text is broken up 
+by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more 
+flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center 
+justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10 "[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"max-w-2xl w-full"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex justify-between text-sm text-[#8c8071] mb-2"[39m
+          [36m>[39m
+            [36m<span>[39m
+              [0mGame [0m
+              [0m1[0m
+              [0m of [0m
+              [0m10[0m
+            [36m</span>[39m
+            [36m<span>[39m
+              [0m0[0m
+              [0m completed[0m
+            [36m</span>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"w-full bg-[#332c25] h-2"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"bg-[#c96a4d] h-2 transition-all"[39m
+              [33mstyle[39m=[32m"width: 0%;"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex justify-between items-center border border-[#463e34] rounded-sm p-4"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-center flex-1"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+              [36m>[39m
+                [0m≡ƒÄ»[0m
+                [0m [0m
+                [0mAlex[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                [33mstyle[39m=[32m"color: rgb(224, 138, 104);"[39m
+              [36m>[39m
+                [0m0[0m
+              [36m</div>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-2xl md:text-3xl font-semibold mx-3 md:mx-5 text-[#8c8071]"[39m
+            [36m>[39m
+              [0mvs[0m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-center flex-1"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+              [36m>[39m
+                [0mΓ£¿[0m
+                [0m [0m
+                [0mSam[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                [33mstyle[39m=[32m"color: rgb(107, 189, 182);"[39m
+              [36m>[39m
+                [0m0[0m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"border border-[#463e34] rounded-sm p-5 md:p-6 mb-6"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-sm text-[#8c8071] mb-2 uppercase tracking-wide"[39m
+          [36m>[39m
+            [0m1st Half[0m
+          [36m</div>[39m
+          [36m<h1[39m
+            [33mclass[39m=[32m"font-display text-3xl font-semibold mb-3"[39m
+          [36m>[39m
+            [0mPerfect Cut[0m
+          [36m</h1>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"text-[#c9beac] leading-relaxed"[39m
+          [36m>[39m
+            [0mCut a piece of paper into what you think is a perfect 4-inch square. Overlay them to see who is more 
+accurate.[0m
+          [36m</p>[39m
+          [36m<form[39m
+            [33mclass[39m=[32m"mt-4 pt-4 border-t border-[#463e34]"[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"block text-sm text-[#c9beac] mb-2"[39m
+            [36m>[39m
+              [0mSide length[0m
+              [0m ([0m
+              [0min[0m
+              [0m)[0m
+              [36m<span[39m
+                [33mclass[39m=[32m"text-[#8c8071]"[39m
+              [36m>[39m
+                [0m ΓÇö target: [0m
+                [0m4[0m
+                [0min[0m
+              [36m</span>[39m
+            [36m</label>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex gap-2"[39m
+            [36m>[39m
+              [36m<input[39m
+                [33mclass[39m=[32m"flex-1 bg-[#2b2620] border border-[#463e34] rounded-sm px-3 py-2 
+text-[#f3ead9]"[39m
+                [33mplaceholder[39m=[32m"Enter in"[39m
+                [33mstep[39m=[32m"any"[39m
+                [33mtype[39m=[32m"number"[39m
+                [33mvalue[39m=[32m""[39m
+              [36m/>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-semibold px-4 
+rounded-sm"[39m
+                [33mtype[39m=[32m"submit"[39m
+              [36m>[39m
+                [0mSubmit[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</form>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center 
+justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10 "[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"max-w-2xl w-full"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-6"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex justify-between text-sm text-[#8c8071] mb-2"[39m
+            [36m>[39m
+              [36m<span>[39m
+                [0mGame [0m
+                [0m1[0m
+                [0m of [0m
+                [0m10[0m
+              [36m</span>[39m
+              [36m<span>[39m
+                [0m0[0m
+                [0m completed[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"w-full bg-[#332c25] h-2"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"bg-[#c96a4d] h-2 transition-all"[39m
+                [33mstyle[39m=[32m"width: 0%;"[39m
+              [36m/>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"mb-6"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"flex justify-between items-center border border-[#463e34] rounded-sm p-4"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-center flex-1"[39m
+              [36m>[39m
+                [36m<div[39m
+ Test Files  2 failed (2)
+      Tests  3 failed | 13 passed (16)
+   Start at  16:48:58
+   Duration  4.22s (transform 230ms, setup 474ms, collect 367ms, tests 2.52s, environment 1.50s, prepare 373ms)
+
+                  [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+                [36m>[39m
+                  [0m≡ƒÄ»[0m
+                  [0m [0m
+                  [0mAlex[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                  [33mstyle[39m=[32m"color: rgb(224, 138, 104);"[39m
+                [36m>[39m
+                  [0m0[0m
+                [36m</div>[39m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-2xl md:text-3xl font-semibold mx-3 md:mx-5 text-[#8c8071]"[39m
+              [36m>[39m
+                [0mvs[0m
+              [36m</div>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"text-center flex-1"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"text-sm md:text-base text-[#8c8071] mb-2"[39m
+                [36m>[39m
+                  [0mΓ£¿[0m
+                  [0m [0m
+                  [0mSam[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"font-display text-4xl md:text-5xl font-semibold"[39m
+                  [33mstyle[39m=[32m"color: rgb(107, 189, 182);"[39m
+                [36m>[39m
+                  [0m0[0m
+                [36m</div>[39m
+              [36m</div>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"border border-[#463e34] rounded-sm p-5 md:p-6 mb-6"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"text-sm text-[#8c8071] mb-2 uppercase tracking-wide"[39m
+            [36m>[39m
+              [0m1st Half[0m
+            [36m</div>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"font-display text-3xl font-semibold mb-3"[39m
+            [36m>[39m
+              [0mPerfect Cut[0m
+            [36m</h1>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"text-[#c9beac] leading-relaxed"[39m
+            [36m>[39m
+              [0mCut a piece of paper into what you think is a perfect 4-inch square. Overlay them to see who is more 
+accurate.[0m
+            [36m</p>[39m
+            [36m<form[39m
+              [33mclass[39m=[32m"mt-4 pt-4 border-t border-[#463e34]"[39m
+            [36m>[39m
+              [36m<label[39m
+                [33mclass[39m=[32m"block text-sm text-[#c9beac] mb-2"[39m
+              [36m>[39m
+                [0mSide length[0m
+                [0m ([0m
+                [0min[0m
+                [0m)[0m
+                [36m<span[39m
+                  [33mclass[39m=[32m"text-[#8c8071]"[39m
+                [36m>[39m
+                  [0m ΓÇö target: [0m
+                  [0m4[0m
+                  [0min[0m
+                [36m</span>[39m
+              [36m</label>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"flex gap-2"[39m
+              [36m>[39m
+                [36m<input[39m
+                  [33mclass[39m=[32m"flex-1 bg-[#2b2620] border border-[#463e34] rounded-sm px-3 py-2 
+text-[#f3ead9]"[39m
+                  [33mplaceholder[39m=[32m"Enter in"[39m
+                  [33mstep[39m=[32m"any"[39m
+                  [33mtype[39m=[32m"number"[39m
+                  [33mvalue[39m=[32m""[39m
+                [36m/>[39m
+                [36m<button[39m
+                  [33mclass[39m=[32m"bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-semibold px-4 
+rounded-sm"[39m
+                  [33mtype[39m=[32m"submit"[39m
+                [36m>[39m
+                  [0mSubmit[0m
+                [36m</button>[39m
+              [36m</div>[39m
+            [36m</form>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+ Γ¥» Proxy.waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ Γ¥» src/App.test.jsx:54:13
+     52|       await user.click(screen.getByRole('button', { name: /Continue/i ΓÇª
+     53|       await user.click(screen.getByRole('button', { name: /Yes, let's ΓÇª
+     54|       await waitFor(() => {
+       |             ^
+     55|         expect(screen.getByText('Alex')).toBeInTheDocument()
+     56|         expect(screen.getByText('Sam')).toBeInTheDocument()
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[2/3]ΓÄ»
+
+ FAIL  src/session/gameLogic.test.js > gameLogic > picks closest timer stop
+AssertionError: expected 'player1' to be 'player2' // Object.is equality
+
+Expected: "player2"
+Received: "player1"
+
+ Γ¥» src/session/gameLogic.test.js:24:75
+     22| 
+     23|   it('picks closest timer stop', () => {
+     24|     expect(closestTimerPlayer({ player1: 61000, player2: 58000 }, 6000ΓÇª
+       |                                                                           ^
+     25|   })
+     26| 
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[3/3]ΓÄ»
+
