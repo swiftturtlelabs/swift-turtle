@@ -23,6 +23,7 @@ export function createInitialSession(overrides = {}) {
     timers: {},
     measurements: {},
     photoMeta: {},
+    presence: { player1: false, player2: false },
     ...overrides,
   }
 }
@@ -271,5 +272,21 @@ export function saveStoredRole(role) {
     if (role) localStorage.setItem('couplegames_role', role)
   } catch {
     // ignore
+  }
+}
+
+export function getPartnerRole(role) {
+  return role === 'player1' ? 'player2' : 'player1'
+}
+
+export function isPartnerConnected(session) {
+  const presence = session.presence || {}
+  return Boolean(presence.player1 && presence.player2)
+}
+
+export function normalizePresence(presence) {
+  return {
+    player1: Boolean(presence?.player1),
+    player2: Boolean(presence?.player2),
   }
 }

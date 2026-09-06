@@ -1,10 +1,39 @@
-import { createInitialSession } from './gameLogic.js'
+import { createInitialSession, normalizePresence } from './gameLogic.js'
 import { generateSessionCode, normalizeSessionCode } from './sessionCode.js'
 import { initFirebase } from '../firebase.js'
 import { getFriendlyFirestoreError, withTimeout } from '../asyncUtils.js'
 
 const COLLECTION = 'couplegamesSessions'
 const FIRESTORE_TIMEOUT_MS = 15000
+
+export async function peekMultiplayerSession(codeInput) {
+  const { firestore } = await initFirebase()
+  if (!firestore) return null
+
+  const { doc, getDoc } = await import('firebase/firestore')
+  const code = normalizeSessionCode(codeInput)
+  if (code.length !== 4) return null
+
+  try {
+    const snap = await withTimeout(
+      getDoc(doc(firestore, COLLECTION, code)),
+      FIRESTORE_TIMEOUT_MS,
+      'Timed out while looking up the game code'
+    )
+    if (!snap.exists()) return null
+    const data = snap.data()
+    return {
+      code,
+      players: data.players,
+      scorekeeper: data.scorekeeper,
+      prize: data.prize,
+      phase: data.phase,
+      presence: normalizePresence(data.presence),
+    }
+  } catch {
+    return null
+  }
+}
 
 export async function createFirestoreBackend() {
   const { firestore } = await initFirebase()
@@ -78,6 +107,7 @@ export async function createFirestoreBackend() {
         attempts++
       }
 
+      const role = setup.myRole || 'player1'
       const data = {
         ...createInitialSession({
           ...setup,
@@ -85,6 +115,10 @@ export async function createFirestoreBackend() {
           code,
           phase: 'lobby',
           currentGame: 0,
+          presence: {
+            player1: role === 'player1',
+            player2: role === 'player2',
+          },
         }),
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
@@ -107,6 +141,11 @@ export async function createFirestoreBackend() {
       return session
     },
 
+    async markPresent(role) {
+      if (!session.code || !role) return
+      await this.updateField(`presence.${role}`, true)
+    },
+
     async joinSession(codeInput, role) {
       const code = normalizeSessionCode(codeInput)
       const ref = doc(firestore, COLLECTION, code)
@@ -123,6 +162,16 @@ export async function createFirestoreBackend() {
       if (!snap.exists()) throw new Error('Session not found')
 
       myRole = role
+      try {
+        await withTimeout(
+          updateDoc(ref, { [`presence.${role}`]: true, updatedAt: serverTimestamp() }),
+          FIRESTORE_TIMEOUT_MS,
+          'Timed out while joining the game'
+        )
+      } catch (error) {
+        throw new Error(getFriendlyFirestoreError(error))
+      }
+
       subscribeToCode(code)
       session = normalizeFirestoreSession(snap.data(), code)
       notify()
@@ -199,5 +248,6 @@ function normalizeFirestoreSession(data, code) {
     timers: data.timers || {},
     measurements: data.measurements || {},
     photoMeta: data.photoMeta || {},
+    presence: normalizePresence(data.presence),
   }
 }

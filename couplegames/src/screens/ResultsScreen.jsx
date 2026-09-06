@@ -2,12 +2,12 @@ import { CHALLENGES } from '../challenges.js'
 import { PlayerLabel } from '../components/PlayerColor.jsx'
 import { ScreenShell, Card, PrimaryButton, SecondaryButton } from '../components/Layout.jsx'
 
-export function ResultsScreen({ session, scores, isScorekeeper, onBack, onPlayAgain, onViewScrapbook, onDeleteGame }) {
+export function ResultsScreen({ session, scores, isScorekeeper, onBack, onPlayAgain, onViewScrapbook, onDeleteGame, footer }) {
   const winner = scores.player1 > scores.player2 ? 'player1' : scores.player2 > scores.player1 ? 'player2' : 'tie'
   const winnerInfo = winner !== 'tie' ? session.players[winner] : null
 
   return (
-    <ScreenShell>
+    <ScreenShell footer={footer}>
       <h1 className="font-display text-3xl font-semibold text-center mb-6">Final Results</h1>
 
       {winner !== 'tie' && winnerInfo && (
@@ -67,7 +67,7 @@ export function ResultsScreen({ session, scores, isScorekeeper, onBack, onPlayAg
   )
 }
 
-export function ScrapbookScreen({ session, photos, onBack }) {
+export function ScrapbookScreen({ session, photos, onBack, footer }) {
   const grouped = {}
 
   // From session photoMeta (local + synced metadata)
@@ -90,7 +90,7 @@ export function ScrapbookScreen({ session, photos, onBack }) {
   })
 
   return (
-    <ScreenShell>
+    <ScreenShell footer={footer}>
       <button onClick={onBack} className="mb-4 text-[#8c8071] hover:text-[#c9beac] text-sm">← Back</button>
       <h1 className="font-display text-3xl font-semibold mb-6 text-center">Scrapbook</h1>
 

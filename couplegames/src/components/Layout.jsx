@@ -1,7 +1,8 @@
-export function ScreenShell({ children, className = '' }) {
+export function ScreenShell({ children, className = '', footer = null }) {
   return (
-    <div className={`h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10 ${className}`}>
-      <div className="max-w-2xl w-full">{children}</div>
+    <div className={`h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-4 ${className}`}>
+      <div className="max-w-2xl w-full flex-1 min-h-0">{children}</div>
+      {footer}
     </div>
   )
 }

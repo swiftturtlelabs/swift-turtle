@@ -33,19 +33,21 @@ export function ScoreBoard({ session, scores, compact = false }) {
   )
 }
 
-export function ScorekeeperBanner({ session, isScorekeeper, onHandoff }) {
+export function ScorekeeperBanner({ session, isScorekeeper, onHandoff, showHandoff = true }) {
   const keeper = session.players[session.scorekeeper]
   return (
     <div className="mb-4 border border-[#463e34] rounded-sm p-3 text-sm text-[#c9beac] flex justify-between items-center gap-3">
       <span>
         {isScorekeeper ? 'You are keeping score.' : `${keeper?.name} is keeping score.`}
       </span>
-      <button
-        onClick={onHandoff}
-        className="text-xs uppercase tracking-wide text-[#8c8071] hover:text-[#c9beac]"
-      >
-        Hand off
-      </button>
+      {showHandoff && (
+        <button
+          onClick={onHandoff}
+          className="text-xs uppercase tracking-wide text-[#8c8071] hover:text-[#c9beac]"
+        >
+          Hand off
+        </button>
+      )}
     </div>
   )
 }

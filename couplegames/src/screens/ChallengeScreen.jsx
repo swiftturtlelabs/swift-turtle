@@ -22,6 +22,7 @@ export function ChallengeScreen({
   onStopTimer,
   onSetMeasurement,
   onUploadPhoto,
+  footer,
 }) {
   if (!challenge) return null
 
@@ -33,7 +34,7 @@ export function ChallengeScreen({
   const gramRoundIndex = challenge.gramMaster ? session.gramMaster.roundWinners.length : null
 
   return (
-    <ScreenShell>
+    <ScreenShell footer={footer}>
       {currentGame > 0 && isScorekeeper && (
         <button onClick={onBack} className="mb-3 text-[#8c8071] hover:text-[#c9beac] text-sm">← Back</button>
       )}
@@ -144,9 +145,9 @@ export function ChallengeScreen({
   )
 }
 
-export function HalftimeScreen({ session, scores, isScorekeeper, onBack, onContinue }) {
+export function HalftimeScreen({ session, scores, isScorekeeper, onBack, onContinue, footer }) {
   return (
-    <ScreenShell>
+    <ScreenShell footer={footer}>
       <div className="text-center">
         <h1 className="font-display text-4xl font-semibold mb-4">1st Half Complete!</h1>
         <p className="text-lg text-[#c9beac] mb-6">Time to head out for the next challenges.</p>

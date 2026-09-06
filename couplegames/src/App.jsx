@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useGameSession } from './session/useGameSession.js'
 import { CHALLENGE_COUNT } from './challenges.js'
+import { MultiplayerFooter } from './components/MultiplayerFooter.jsx'
 import { LandingScreen } from './screens/LandingScreen.jsx'
 import { SetupScreen, JoinScreen } from './screens/SetupScreen.jsx'
 import { LobbyScreen } from './screens/LobbyScreen.jsx'
@@ -9,9 +10,12 @@ import { ResultsScreen, ScrapbookScreen } from './screens/ResultsScreen.jsx'
 
 function App() {
   const game = useGameSession()
-  const { session, scores, isScorekeeper, actions } = game
+  const { session, scores, isScorekeeper, partnerConnected, myRole, actions } = game
   const [flow, setFlow] = useState('landing')
   const [setupMode, setSetupMode] = useState('local')
+  const mpFooter = session.mode === 'multiplayer' && myRole
+    ? <MultiplayerFooter session={session} myRole={myRole} />
+    : null
 
   const handleSetupSubmit = async (setup) => {
     if (setupMode === 'local') {
@@ -51,6 +55,7 @@ function App() {
       <JoinScreen
         loading={game.loading}
         error={game.error}
+        onPeekCode={actions.peekSessionCode}
         onBack={() => setFlow('landing')}
         onJoin={async (code, role) => {
           const ok = await actions.joinMultiplayerGame(code, role)
@@ -65,7 +70,10 @@ function App() {
       <LobbyScreen
         session={session}
         scores={scores}
+        myRole={myRole}
         isScorekeeper={isScorekeeper}
+        partnerConnected={partnerConnected}
+        footer={mpFooter}
         onBegin={async () => {
           await actions.beginFromLobby()
           setFlow('game')
@@ -80,6 +88,7 @@ function App() {
         session={session}
         scores={scores}
         isScorekeeper={isScorekeeper}
+        footer={mpFooter}
         onBack={actions.goBack}
         onContinue={actions.continueToSecondHalf}
       />
@@ -92,6 +101,7 @@ function App() {
         <ScrapbookScreen
           session={session}
           photos={game.photos}
+          footer={mpFooter}
           onBack={() => setFlow('results')}
         />
       )
@@ -101,6 +111,7 @@ function App() {
         session={session}
         scores={scores}
         isScorekeeper={isScorekeeper}
+        footer={mpFooter}
         onBack={actions.goBack}
         onPlayAgain={async () => {
           await actions.resetGame()
@@ -123,10 +134,11 @@ function App() {
         challenge={game.challenge}
         description={game.description}
         gramCounts={game.gramCounts}
-        myRole={game.myRole}
+        myRole={myRole}
         isScorekeeper={isScorekeeper}
         clockOffsetMs={game.clockOffsetMs}
         photos={game.photos}
+        footer={mpFooter}
         onBack={actions.goBack}
         onRecordWinner={actions.recordWinner}
         onHandoff={actions.handoffScorekeeper}

@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ScreenShell, Card, PrimaryButton } from '../components/Layout.jsx'
 import { DEFAULT_PLAYERS, loadStoredPlayerPrefs } from '../session/gameLogic.js'
-import { ColorPicker, PlayerOptionButton } from '../components/PlayerColor.jsx'
+import { ColorPicker, PlayerOptionButton, PlayerLabel } from '../components/PlayerColor.jsx'
 
 export function SetupScreen({ mode, onBack, onSubmit, loading = false, error = null }) {
   const stored = loadStoredPlayerPrefs()
@@ -26,9 +26,14 @@ export function SetupScreen({ mode, onBack, onSubmit, loading = false, error = n
   }
 
   const prizeValid = prize.trim().length > 0
+  const setupFooter = mode === 'multiplayer' ? (
+    <div className="sticky bottom-0 w-full border-t border-[#463e34] bg-[#1a1613] px-3 py-2 text-xs sm:text-sm text-[#8c8071]">
+      You are <span className="font-semibold ml-1" style={{ color: players[myRole].color }}>{players[myRole].name}</span>
+    </div>
+  ) : null
 
   return (
-    <ScreenShell className="pt-4 p-3 pb-4">
+    <ScreenShell className="pt-4 p-3 pb-4" footer={setupFooter}>
       <button onClick={onBack} className="mb-2 text-[#8c8071] hover:text-[#c9beac] text-sm">← Back</button>
       <h1 className="font-display text-2xl font-semibold mb-3 text-center">Game setup</h1>
 
@@ -118,16 +123,57 @@ export function SetupScreen({ mode, onBack, onSubmit, loading = false, error = n
   )
 }
 
-export function JoinScreen({ onBack, onJoin, loading = false, error = null }) {
+export function JoinScreen({ onBack, onJoin, onPeekCode, loading = false, error = null }) {
   const [code, setCode] = useState('')
   const [role, setRole] = useState('player2')
+  const [preview, setPreview] = useState(null)
+  const [peekError, setPeekError] = useState('')
+
+  useEffect(() => {
+    if (!onPeekCode || code.length !== 4) {
+      setPreview(null)
+      setPeekError('')
+      return undefined
+    }
+
+    let cancelled = false
+    const timer = setTimeout(async () => {
+      const result = await onPeekCode(code)
+      if (cancelled) return
+      if (!result) {
+        setPreview(null)
+        setPeekError('No game found with that code.')
+        return
+      }
+      setPeekError('')
+      setPreview(result)
+    }, 250)
+
+    return () => {
+      cancelled = true
+      clearTimeout(timer)
+    }
+  }, [code, onPeekCode])
+
+  useEffect(() => {
+    if (!preview?.presence) return
+    if (preview.presence.player1 && !preview.presence.player2) setRole('player2')
+    else if (preview.presence.player2 && !preview.presence.player1) setRole('player1')
+  }, [preview])
 
   const handleJoin = () => {
     onJoin(code, role)
   }
 
+  const roleTaken = (key) => Boolean(preview?.presence?.[key])
+  const joinFooter = preview?.players?.[role] ? (
+    <div className="sticky bottom-0 w-full border-t border-[#463e34] bg-[#1a1613] px-3 py-2 text-xs sm:text-sm text-[#8c8071]">
+      You are <PlayerLabel player={preview.players[role]} className="ml-1" />
+    </div>
+  ) : null
+
   return (
-    <ScreenShell className="pt-4 p-3 pb-4">
+    <ScreenShell className="pt-4 p-3 pb-4" footer={joinFooter}>
       <button onClick={onBack} className="mb-2 text-[#8c8071] hover:text-[#c9beac] text-sm">← Back</button>
       <h1 className="font-display text-2xl font-semibold mb-3 text-center">Join a game</h1>
       <Card compact className="space-y-3">
@@ -141,15 +187,55 @@ export function JoinScreen({ onBack, onJoin, loading = false, error = null }) {
             placeholder="ABCD"
           />
         </div>
-        <div>
-          <label className="text-xs text-[#8c8071] block mb-1">I am player...</label>
-          <div className="grid grid-cols-2 gap-2">
-            <button type="button" onClick={() => setRole('player1')} className={`py-1.5 text-sm rounded-sm border ${role === 'player1' ? 'border-[#c96a4d]' : 'border-[#463e34]'}`}>Player 1</button>
-            <button type="button" onClick={() => setRole('player2')} className={`py-1.5 text-sm rounded-sm border ${role === 'player2' ? 'border-[#c96a4d]' : 'border-[#463e34]'}`}>Player 2</button>
+
+        {preview && (
+          <div className="rounded-sm border border-[#463e34] px-3 py-2 text-center">
+            <div className="text-xs text-[#8c8071] mb-2">This game</div>
+            <div className="flex justify-center items-center gap-2 text-sm">
+              <PlayerLabel player={preview.players.player1} />
+              <span className="text-[#8c8071]">vs</span>
+              <PlayerLabel player={preview.players.player2} />
+            </div>
+            {preview.prize && (
+              <div className="text-xs text-[#8c8071] mt-2">Prize: {preview.prize}</div>
+            )}
           </div>
+        )}
+
+        {peekError && code.length === 4 && (
+          <p className="text-xs text-[#e08a68]" role="alert">{peekError}</p>
+        )}
+
+        <div>
+          <label className="text-xs text-[#8c8071] block mb-1">I am...</label>
+          {preview ? (
+            <div className="grid grid-cols-2 gap-2">
+              {(['player1', 'player2']).map((key) => (
+                <PlayerOptionButton
+                  key={key}
+                  player={preview.players[key]}
+                  selected={role === key}
+                  disabled={roleTaken(key)}
+                  onClick={() => setRole(key)}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-2">
+              <button type="button" onClick={() => setRole('player1')} className={`py-1.5 text-sm rounded-sm border ${role === 'player1' ? 'border-[#c96a4d]' : 'border-[#463e34]'}`}>Player 1</button>
+              <button type="button" onClick={() => setRole('player2')} className={`py-1.5 text-sm rounded-sm border ${role === 'player2' ? 'border-[#c96a4d]' : 'border-[#463e34]'}`}>Player 2</button>
+            </div>
+          )}
+          {preview && roleTaken(role) && (
+            <p className="text-xs text-[#e08a68] mt-1">That player is already connected. Pick the other name.</p>
+          )}
         </div>
         {error && <p className="text-xs text-[#e08a68]" role="alert">{error}</p>}
-        <PrimaryButton className="w-full py-3" onClick={handleJoin} disabled={loading || code.length < 4}>
+        <PrimaryButton
+          className="w-full py-3"
+          onClick={handleJoin}
+          disabled={loading || code.length < 4 || !preview || roleTaken(role)}
+        >
           {loading ? 'Joining…' : 'Join'}
         </PrimaryButton>
       </Card>

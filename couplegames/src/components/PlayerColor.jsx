@@ -54,12 +54,13 @@ export function PlayerLabel({ player, className = '' }) {
   )
 }
 
-export function PlayerOptionButton({ player, selected, onClick }) {
+export function PlayerOptionButton({ player, selected, onClick, disabled = false }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`py-1.5 px-2 text-sm rounded-sm border flex items-center justify-center transition-colors ${selected ? '' : 'border-[#463e34]'}`}
+      disabled={disabled}
+      className={`py-1.5 px-2 text-sm rounded-sm border flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${selected ? '' : 'border-[#463e34]'}`}
       style={selected ? { borderColor: player.color, backgroundColor: `${player.color}22` } : undefined}
     >
       <span style={{ color: player.color }}>{player.name}</span>

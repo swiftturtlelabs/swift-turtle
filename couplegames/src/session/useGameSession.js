@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { CHALLENGES, CHALLENGE_COUNT } from '../challenges.js'
 import { createLocalBackend } from './localBackend.js'
-import { createFirestoreBackend } from './firestoreBackend.js'
+import { createFirestoreBackend, peekMultiplayerSession } from './firestoreBackend.js'
 import {
   applyWinner,
   createInitialSession,
@@ -10,6 +10,7 @@ import {
   getChallengeDescription,
   getGramMasterRoundCounts,
   getPlayerName,
+  isPartnerConnected,
   loadStoredPlayerPrefs,
   loadStoredRole,
   saveStoredPlayerPrefs,
@@ -44,6 +45,7 @@ export function useGameSession() {
 
   const scores = useMemo(() => deriveScores(session.winners), [session.winners])
   const isScorekeeper = session.mode === 'local' || session.scorekeeper === myRole
+  const partnerConnected = useMemo(() => isPartnerConnected(session), [session])
   const challenge = CHALLENGES[session.currentGame] ?? null
 
   const switchToMultiplayer = useCallback(async () => {
@@ -118,6 +120,21 @@ export function useGameSession() {
       await backendRef.current?.joinSession(code, role)
     })
   }, [runMultiplayerAction])
+
+  const peekSessionCode = useCallback(async (code) => {
+    if (!isFirebaseConfigured()) return null
+    try {
+      await initFirebase()
+      return await peekMultiplayerSession(code)
+    } catch {
+      return null
+    }
+  }, [])
+
+  const markPresent = useCallback(async () => {
+    if (session.mode !== 'multiplayer' || !session.code || !myRole) return
+    await backendRef.current?.markPresent?.(myRole)
+  }, [myRole, session.code, session.mode])
 
   const beginFromLobby = useCallback(async () => {
     if (!isScorekeeper) return
@@ -318,6 +335,11 @@ export function useGameSession() {
     }
   }, [session.mode])
 
+  useEffect(() => {
+    if (session.mode !== 'multiplayer' || !session.code || !myRole) return
+    markPresent()
+  }, [session.mode, session.code, myRole, markPresent])
+
   // Auto-judge watcher for when partner submits measurement
   useEffect(() => {
     if (!isScorekeeper || session.phase !== 'playing') return
@@ -347,6 +369,7 @@ export function useGameSession() {
     scores,
     myRole,
     isScorekeeper,
+    partnerConnected,
     challenge,
     description,
     gramCounts,
@@ -359,6 +382,7 @@ export function useGameSession() {
       startLocalGame,
       createMultiplayerGame,
       joinMultiplayerGame,
+      peekSessionCode,
       beginFromLobby,
       recordWinner,
       goBack,
