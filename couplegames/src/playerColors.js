@@ -18,7 +18,7 @@ export function normalizePlayer(player, fallback) {
 
 export function normalizePlayers(players) {
   return {
-    player1: normalizePlayer(players?.player1, { name: 'Kenny', color: '#e08a68' }),
-    player2: normalizePlayer(players?.player2, { name: 'Katie', color: '#6bbdb6' }),
+    player1: normalizePlayer(players?.player1, { name: 'Katie', color: '#e06b9a' }),
+    player2: normalizePlayer(players?.player2, { name: 'Kenny', color: '#5ba4d9' }),
   }
 }

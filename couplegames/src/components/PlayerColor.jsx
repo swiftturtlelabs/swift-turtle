@@ -46,10 +46,9 @@ export function ColorPicker({ value, onChange, label }) {
   )
 }
 
-export function PlayerLabel({ player, showSwatch = true, className = '' }) {
+export function PlayerLabel({ player, className = '' }) {
   return (
-    <span className={`inline-flex items-center gap-2 font-semibold ${className}`} style={{ color: player.color }}>
-      {showSwatch && <ColorSwatch color={player.color} size="sm" />}
+    <span className={`font-semibold ${className}`} style={{ color: player.color }}>
       {player.name}
     </span>
   )
@@ -60,10 +59,9 @@ export function PlayerOptionButton({ player, selected, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className={`py-2 px-3 rounded-sm border flex items-center justify-center gap-2 transition-colors ${selected ? '' : 'border-[#463e34]'}`}
+      className={`py-2 px-3 rounded-sm border flex items-center justify-center transition-colors ${selected ? '' : 'border-[#463e34]'}`}
       style={selected ? { borderColor: player.color, backgroundColor: `${player.color}22` } : undefined}
     >
-      <ColorSwatch color={player.color} />
       <span style={{ color: player.color }}>{player.name}</span>
     </button>
   )

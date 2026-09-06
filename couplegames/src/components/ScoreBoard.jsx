@@ -1,4 +1,4 @@
-import { ColorSwatch, PlayerLabel } from './PlayerColor.jsx'
+import { PlayerLabel } from './PlayerColor.jsx'
 
 export function ScoreBoard({ session, scores, compact = false }) {
   const p1 = session.players.player1
@@ -37,8 +37,7 @@ export function ScorekeeperBanner({ session, isScorekeeper, onHandoff }) {
   const keeper = session.players[session.scorekeeper]
   return (
     <div className="mb-4 border border-[#463e34] rounded-sm p-3 text-sm text-[#c9beac] flex justify-between items-center gap-3">
-      <span className="inline-flex items-center gap-2">
-        {keeper && <ColorSwatch color={keeper.color} />}
+      <span>
         {isScorekeeper ? 'You are keeping score.' : `${keeper?.name} is keeping score.`}
       </span>
       <button

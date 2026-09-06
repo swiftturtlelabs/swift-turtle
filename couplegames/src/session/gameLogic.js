@@ -2,8 +2,8 @@ import { CHALLENGES, CHALLENGE_COUNT } from '../challenges.js'
 import { normalizePlayers } from '../playerColors.js'
 
 export const DEFAULT_PLAYERS = {
-  player1: { name: 'Kenny', color: '#e08a68' },
-  player2: { name: 'Katie', color: '#6bbdb6' },
+  player1: { name: 'Katie', color: '#e06b9a' },
+  player2: { name: 'Kenny', color: '#5ba4d9' },
 }
 
 export function createInitialSession(overrides = {}) {
