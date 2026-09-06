@@ -1,10 +1,13 @@
 import { ScreenShell, Card, PrimaryButton, SecondaryButton } from '../components/Layout.jsx'
+import { AppTitle } from '../components/AppTitle.jsx'
 
 export function LandingScreen({ isFirebaseConfigured, onSingleDevice, onCreateGame, onJoinGame }) {
   return (
     <ScreenShell>
       <div className="text-center">
-        <h1 className="font-display text-4xl md:text-5xl font-semibold mb-3 md:mb-4 tracking-tight">Couple's Challenge</h1>
+        <AppTitle className="font-display text-4xl md:text-5xl font-semibold mb-3 md:mb-4 tracking-tight cursor-default select-none">
+          Couple's Challenge
+        </AppTitle>
         <p className="text-lg md:text-xl text-[#c9beac] mb-5 md:mb-6">10 challenges. Two halves. One winner.</p>
 
         <Card className="mb-5 md:mb-6 text-left">
