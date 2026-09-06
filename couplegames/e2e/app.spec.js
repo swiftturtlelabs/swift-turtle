@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 
 async function startLocalGame(page) {
   await page.getByRole('button', { name: /Play on one phone/i }).click();
+  await page.getByPlaceholder('Who picks lunch, the next movie, a treat...').fill('Winner picks dinner');
   await page.getByRole('button', { name: /Continue/i }).click();
-  await page.getByRole('button', { name: /Yes, let's go!/i }).click();
 }
 
 test.describe('Couple\'s Challenge App', () => {

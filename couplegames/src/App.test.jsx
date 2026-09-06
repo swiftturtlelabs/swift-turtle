@@ -5,8 +5,8 @@ import App from './App'
 
 async function startLocalGame(user) {
   await user.click(screen.getByRole('button', { name: /Play on one phone/i }))
+  await user.type(screen.getByPlaceholderText(/Who picks lunch/i), 'Winner picks dinner')
   await user.click(screen.getByRole('button', { name: /Continue/i }))
-  await user.click(screen.getByRole('button', { name: /Yes, let's go!/i }))
 }
 
 describe('App Component', () => {
@@ -49,21 +49,21 @@ describe('App Component', () => {
       await user.type(inputs[0], 'Alex')
       await user.clear(inputs[1])
       await user.type(inputs[1], 'Sam')
+      await user.type(screen.getByPlaceholderText(/Who picks lunch/i), 'Pick the movie')
       await user.click(screen.getByRole('button', { name: /Continue/i }))
-      await user.click(screen.getByRole('button', { name: /Yes, let's go!/i }))
       await waitFor(() => {
         expect(screen.getByText(/Alex/)).toBeInTheDocument()
         expect(screen.getByText(/Sam/)).toBeInTheDocument()
       })
     })
 
-    it('asks to confirm prize before starting', async () => {
+    it('requires a prize before continuing', async () => {
       const user = userEvent.setup()
       render(<App />)
       await user.click(screen.getByRole('button', { name: /Play on one phone/i }))
-      await user.click(screen.getByRole('button', { name: /Continue/i }))
-      expect(screen.getByRole('dialog')).toBeInTheDocument()
-      expect(screen.getByText(/agreed on what the winner gets/i)).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /Continue/i })).toBeDisabled()
+      await user.type(screen.getByPlaceholderText(/Who picks lunch/i), 'Winner picks dinner')
+      expect(screen.getByRole('button', { name: /Continue/i })).toBeEnabled()
     })
   })
 

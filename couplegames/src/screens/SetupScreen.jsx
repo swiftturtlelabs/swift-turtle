@@ -9,14 +9,23 @@ export function SetupScreen({ mode, onBack, onSubmit }) {
   const [scorekeeper, setScorekeeper] = useState('player1')
   const [myRole, setMyRole] = useState('player1')
   const [prize, setPrize] = useState('')
+  const [prizeError, setPrizeError] = useState('')
 
   const updatePlayer = (key, field, value) => {
     setPlayers((prev) => ({ ...prev, [key]: { ...prev[key], [field]: value } }))
   }
 
   const handleSubmit = () => {
-    onSubmit({ players, scorekeeper, prize, myRole: mode === 'multiplayer' ? myRole : 'player1' })
+    const trimmedPrize = prize.trim()
+    if (!trimmedPrize) {
+      setPrizeError('Agree on a prize before you start.')
+      return
+    }
+    setPrizeError('')
+    onSubmit({ players, scorekeeper, prize: trimmedPrize, myRole: mode === 'multiplayer' ? myRole : 'player1' })
   }
+
+  const prizeValid = prize.trim().length > 0
 
   return (
     <ScreenShell>
@@ -43,13 +52,25 @@ export function SetupScreen({ mode, onBack, onSubmit }) {
       </Card>
 
       <Card className="mb-4">
-        <label className="text-sm text-[#8c8071] block mb-2">Prize for the winner</label>
+        <label className="text-sm text-[#8c8071] block mb-2" htmlFor="prize-input">
+          Prize for the winner <span className="text-[#c96a4d]">*</span>
+        </label>
         <input
+          id="prize-input"
           value={prize}
-          onChange={(e) => setPrize(e.target.value)}
+          onChange={(e) => {
+            setPrize(e.target.value)
+            if (prizeError && e.target.value.trim()) setPrizeError('')
+          }}
+          required
+          aria-required="true"
+          aria-invalid={prizeError ? 'true' : 'false'}
           className="w-full bg-[#2b2620] border border-[#463e34] rounded-sm px-3 py-2"
-          placeholder="Who picks lunch, next movie, a treat..."
+          placeholder="Who picks lunch, the next movie, a treat..."
         />
+        {prizeError && (
+          <p className="text-sm text-[#e08a68] mt-2" role="alert">{prizeError}</p>
+        )}
       </Card>
 
       <Card className="mb-4">
@@ -82,7 +103,7 @@ export function SetupScreen({ mode, onBack, onSubmit }) {
         </Card>
       )}
 
-      <PrimaryButton className="w-full text-lg" onClick={handleSubmit}>
+      <PrimaryButton className="w-full text-lg" onClick={handleSubmit} disabled={!prizeValid}>
         Continue
       </PrimaryButton>
     </ScreenShell>

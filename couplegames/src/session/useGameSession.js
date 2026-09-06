@@ -28,7 +28,6 @@ export function useGameSession() {
   const [clockOffsetMs, setClockOffsetMs] = useState(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const [ui, setUi] = useState({ showPrizeConfirm: false, view: 'landing' })
 
   useEffect(() => {
     const backend = createLocalBackend()
@@ -77,7 +76,6 @@ export function useGameSession() {
       phase: 'playing',
       currentGame: 0,
     })
-    setUi({ showPrizeConfirm: false, view: 'game' })
   }, [myRole, session.players])
 
   const createMultiplayerGame = useCallback(async (setup) => {
@@ -89,7 +87,6 @@ export function useGameSession() {
     saveStoredRole(setup.myRole || 'player1')
     setMyRole(setup.myRole || 'player1')
     await backendRef.current?.createSession({ ...setup, players, myRole: setup.myRole || 'player1' })
-    setUi({ view: 'lobby' })
   }, [session.players, switchToMultiplayer])
 
   const joinMultiplayerGame = useCallback(async (code, role) => {
@@ -98,13 +95,11 @@ export function useGameSession() {
     saveStoredRole(role)
     setMyRole(role)
     await backendRef.current?.joinSession(code, role)
-    setUi({ view: 'lobby' })
   }, [switchToMultiplayer])
 
   const beginFromLobby = useCallback(async () => {
     if (!isScorekeeper) return
     await backendRef.current?.startGameFromLobby?.()
-    setUi({ view: 'game' })
   }, [isScorekeeper])
 
   const recordWinner = useCallback(async (player) => {
@@ -160,7 +155,6 @@ export function useGameSession() {
     await backendRef.current?.deleteSession?.()
     setSession(createInitialSession())
     setPhotos([])
-    setUi({ showPrizeConfirm: false, view: 'landing' })
   }, [])
 
   const handoffScorekeeper = useCallback(async () => {
@@ -337,8 +331,6 @@ export function useGameSession() {
     photos,
     loading,
     error,
-    ui,
-    setUi,
     isFirebaseConfigured: isFirebaseConfigured(),
     clockOffsetMs,
     actions: {

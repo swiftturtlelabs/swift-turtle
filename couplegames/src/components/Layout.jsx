@@ -15,7 +15,7 @@ export function Card({ children, className = '' }) {
 export function PrimaryButton({ children, className = '', ...props }) {
   return (
     <button
-      className={`bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-bold py-3 md:py-4 px-6 md:px-8 rounded-sm transition-colors ${className}`}
+      className={`bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-bold py-3 md:py-4 px-6 md:px-8 rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${className}`}
       {...props}
     >
       {children}
