@@ -57,15 +57,15 @@ function App() {
         error={game.error}
         onPeekCode={actions.peekSessionCode}
         onBack={() => setFlow('landing')}
-        onJoin={async (code, role) => {
-          const ok = await actions.joinMultiplayerGame(code, role)
+        onJoin={async (code) => {
+          const ok = await actions.joinMultiplayerGame(code, 'player2')
           if (ok) setFlow('lobby')
         }}
       />
     )
   }
 
-  if ((session.phase === 'lobby' || flow === 'lobby') && session.code) {
+  if (session.phase === 'lobby' && session.code) {
     return (
       <LobbyScreen
         session={session}

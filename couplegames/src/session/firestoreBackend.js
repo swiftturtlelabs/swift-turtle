@@ -161,10 +161,21 @@ export async function createFirestoreBackend() {
       }
       if (!snap.exists()) throw new Error('Session not found')
 
-      myRole = role
+      const data = snap.data()
+      const presence = normalizePresence(data.presence)
+      const joinRole = role === 'player1' ? 'player1' : 'player2'
+
+      if (joinRole === 'player2' && presence.player2) {
+        throw new Error(`${data.players?.player2?.name || 'Player 2'} is already connected.`)
+      }
+      if (joinRole === 'player1' && presence.player1) {
+        throw new Error(`${data.players?.player1?.name || 'Player 1'} is already connected.`)
+      }
+
+      myRole = joinRole
       try {
         await withTimeout(
-          updateDoc(ref, { [`presence.${role}`]: true, updatedAt: serverTimestamp() }),
+          updateDoc(ref, { [`presence.${joinRole}`]: true, updatedAt: serverTimestamp() }),
           FIRESTORE_TIMEOUT_MS,
           'Timed out while joining the game'
         )

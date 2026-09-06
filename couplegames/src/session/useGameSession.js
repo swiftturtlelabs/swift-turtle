@@ -91,8 +91,8 @@ export function useGameSession() {
     const prefs = loadStoredPlayerPrefs()
     const players = setup.players || prefs || session.players
     saveStoredPlayerPrefs(players)
-    saveStoredRole(setup.scorekeeper || myRole)
-    setMyRole(setup.myRole || 'player1')
+    saveStoredRole('player1')
+    setMyRole('player1')
     await backendRef.current?.createSession({
       ...setup,
       players,
@@ -106,10 +106,10 @@ export function useGameSession() {
     const prefs = loadStoredPlayerPrefs()
     const players = setup.players || prefs || session.players
     saveStoredPlayerPrefs(players)
-    saveStoredRole(setup.myRole || 'player1')
-    setMyRole(setup.myRole || 'player1')
+    saveStoredRole('player1')
+    setMyRole('player1')
     return runMultiplayerAction(async () => {
-      await backendRef.current?.createSession({ ...setup, players, myRole: setup.myRole || 'player1' })
+      await backendRef.current?.createSession({ ...setup, players, myRole: 'player1' })
     })
   }, [runMultiplayerAction, session.players])
 

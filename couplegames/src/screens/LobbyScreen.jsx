@@ -42,7 +42,17 @@ export function LobbyScreen({ session, scores, myRole, isScorekeeper, partnerCon
         )}
 
         {partnerConnected && !isScorekeeper && (
-          <p className="text-[#c9beac] mb-4">Waiting for the scorekeeper to start…</p>
+          <p className="text-[#c9beac] mb-4">
+            Waiting for {session.players[session.scorekeeper]?.name || 'the scorekeeper'} to tap Start…
+          </p>
+        )}
+
+        {isScorekeeper && !partnerConnected && (
+          <p className="text-sm text-[#8c8071] mb-4">Start unlocks once {partnerName} joins.</p>
+        )}
+
+        {isScorekeeper && partnerConnected && (
+          <p className="text-sm text-[#6bbdb6] mb-3">Both players connected — tap Start when you're ready.</p>
         )}
 
         {isScorekeeper && (
