@@ -22,6 +22,7 @@ import { uploadSessionPhoto, deleteSessionStorage } from '../photos.js'
 
 export function useGameSession() {
   const backendRef = useRef(null)
+  const unsubscribeBackendRef = useRef(null)
   const [session, setSession] = useState(() => createInitialSession())
   const [myRole, setMyRole] = useState(() => loadStoredRole() || 'player1')
   const [photos, setPhotos] = useState([])
@@ -32,7 +33,13 @@ export function useGameSession() {
   useEffect(() => {
     const backend = createLocalBackend()
     backendRef.current = backend
-    return backend.subscribe((s) => setSession(s))
+    unsubscribeBackendRef.current = backend.subscribe((s) => setSession(s))
+    return () => unsubscribeBackendRef.current?.()
+  }, [])
+
+  const detachLocalBackend = useCallback(() => {
+    unsubscribeBackendRef.current?.()
+    unsubscribeBackendRef.current = null
   }, [])
 
   const scores = useMemo(() => deriveScores(session.winners), [session.winners])
@@ -40,17 +47,18 @@ export function useGameSession() {
   const challenge = CHALLENGES[session.currentGame] ?? null
 
   const switchToMultiplayer = useCallback(async () => {
-    setLoading(true)
     setError(null)
     try {
       await initFirebase()
       const fb = await createFirestoreBackend()
       if (!fb) {
-        setError('Firebase is not configured. Playing in single-device mode.')
+        const message = 'Firebase is not configured. Playing in single-device mode.'
+        setError(message)
         return false
       }
+      detachLocalBackend()
       backendRef.current = fb
-      fb.subscribe((s, role) => {
+      unsubscribeBackendRef.current = fb.subscribe((s, role) => {
         setSession(s)
         if (role) setMyRole(role)
       })
@@ -58,10 +66,24 @@ export function useGameSession() {
     } catch (e) {
       setError(e.message)
       return false
+    }
+  }, [detachLocalBackend])
+
+  const runMultiplayerAction = useCallback(async (action) => {
+    setLoading(true)
+    setError(null)
+    try {
+      const ok = await switchToMultiplayer()
+      if (!ok) return false
+      await action()
+      return true
+    } catch (e) {
+      setError(e.message)
+      return false
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [switchToMultiplayer])
 
   const startLocalGame = useCallback(async (setup) => {
     const prefs = loadStoredPlayerPrefs()
@@ -79,23 +101,23 @@ export function useGameSession() {
   }, [myRole, session.players])
 
   const createMultiplayerGame = useCallback(async (setup) => {
-    const ok = await switchToMultiplayer()
-    if (!ok) return
     const prefs = loadStoredPlayerPrefs()
     const players = setup.players || prefs || session.players
     saveStoredPlayerPrefs(players)
     saveStoredRole(setup.myRole || 'player1')
     setMyRole(setup.myRole || 'player1')
-    await backendRef.current?.createSession({ ...setup, players, myRole: setup.myRole || 'player1' })
-  }, [session.players, switchToMultiplayer])
+    return runMultiplayerAction(async () => {
+      await backendRef.current?.createSession({ ...setup, players, myRole: setup.myRole || 'player1' })
+    })
+  }, [runMultiplayerAction, session.players])
 
   const joinMultiplayerGame = useCallback(async (code, role) => {
-    const ok = await switchToMultiplayer()
-    if (!ok) return
     saveStoredRole(role)
     setMyRole(role)
-    await backendRef.current?.joinSession(code, role)
-  }, [switchToMultiplayer])
+    return runMultiplayerAction(async () => {
+      await backendRef.current?.joinSession(code, role)
+    })
+  }, [runMultiplayerAction])
 
   const beginFromLobby = useCallback(async () => {
     if (!isScorekeeper) return

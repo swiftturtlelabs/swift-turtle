@@ -3,7 +3,7 @@ import { ScreenShell, Card, PrimaryButton } from '../components/Layout.jsx'
 import { DEFAULT_PLAYERS, loadStoredPlayerPrefs } from '../session/gameLogic.js'
 import { ColorPicker, PlayerOptionButton } from '../components/PlayerColor.jsx'
 
-export function SetupScreen({ mode, onBack, onSubmit }) {
+export function SetupScreen({ mode, onBack, onSubmit, loading = false, error = null }) {
   const stored = loadStoredPlayerPrefs()
   const [players, setPlayers] = useState(stored || DEFAULT_PLAYERS)
   const [scorekeeper, setScorekeeper] = useState('player1')
@@ -107,25 +107,23 @@ export function SetupScreen({ mode, onBack, onSubmit }) {
         )}
       </Card>
 
-      <PrimaryButton className="w-full py-3 text-base" onClick={handleSubmit} disabled={!prizeValid}>
-        Continue
+      {error && (
+        <p className="text-xs text-[#e08a68] mb-2 text-center" role="alert">{error}</p>
+      )}
+
+      <PrimaryButton className="w-full py-3 text-base" onClick={handleSubmit} disabled={!prizeValid || loading}>
+        {loading ? 'Creating game…' : 'Continue'}
       </PrimaryButton>
     </ScreenShell>
   )
 }
 
-export function JoinScreen({ onBack, onJoin }) {
+export function JoinScreen({ onBack, onJoin, loading = false, error = null }) {
   const [code, setCode] = useState('')
   const [role, setRole] = useState('player2')
-  const [error, setError] = useState('')
 
-  const handleJoin = async () => {
-    try {
-      setError('')
-      await onJoin(code, role)
-    } catch (e) {
-      setError(e.message)
-    }
+  const handleJoin = () => {
+    onJoin(code, role)
   }
 
   return (
@@ -150,8 +148,10 @@ export function JoinScreen({ onBack, onJoin }) {
             <button type="button" onClick={() => setRole('player2')} className={`py-1.5 text-sm rounded-sm border ${role === 'player2' ? 'border-[#c96a4d]' : 'border-[#463e34]'}`}>Player 2</button>
           </div>
         </div>
-        {error && <p className="text-xs text-[#e08a68]">{error}</p>}
-        <PrimaryButton className="w-full py-3" onClick={handleJoin}>Join</PrimaryButton>
+        {error && <p className="text-xs text-[#e08a68]" role="alert">{error}</p>}
+        <PrimaryButton className="w-full py-3" onClick={handleJoin} disabled={loading || code.length < 4}>
+          {loading ? 'Joining…' : 'Join'}
+        </PrimaryButton>
       </Card>
     </ScreenShell>
   )

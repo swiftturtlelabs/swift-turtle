@@ -1,8 +1,10 @@
 import { createInitialSession } from './gameLogic.js'
 import { generateSessionCode, normalizeSessionCode } from './sessionCode.js'
 import { initFirebase } from '../firebase.js'
+import { getFriendlyFirestoreError, withTimeout } from '../asyncUtils.js'
 
 const COLLECTION = 'couplegamesSessions'
+const FIRESTORE_TIMEOUT_MS = 15000
 
 export async function createFirestoreBackend() {
   const { firestore } = await initFirebase()
@@ -66,7 +68,11 @@ export async function createFirestoreBackend() {
       let attempts = 0
       while (attempts < 10) {
         const ref = doc(firestore, COLLECTION, code)
-        const existing = await getDoc(ref)
+        const existing = await withTimeout(
+          getDoc(ref),
+          FIRESTORE_TIMEOUT_MS,
+          'Timed out while reserving a session code'
+        )
         if (!existing.exists()) break
         code = generateSessionCode()
         attempts++
@@ -84,7 +90,16 @@ export async function createFirestoreBackend() {
         updatedAt: serverTimestamp(),
       }
 
-      await setDoc(doc(firestore, COLLECTION, code), stripLocalFields(data))
+      try {
+        await withTimeout(
+          setDoc(doc(firestore, COLLECTION, code), stripLocalFields(data)),
+          FIRESTORE_TIMEOUT_MS,
+          'Timed out while creating the game session'
+        )
+      } catch (error) {
+        throw new Error(getFriendlyFirestoreError(error))
+      }
+
       myRole = setup.myRole || 'player1'
       subscribeToCode(code)
       session = { ...data, code }
@@ -95,7 +110,16 @@ export async function createFirestoreBackend() {
     async joinSession(codeInput, role) {
       const code = normalizeSessionCode(codeInput)
       const ref = doc(firestore, COLLECTION, code)
-      const snap = await getDoc(ref)
+      let snap
+      try {
+        snap = await withTimeout(
+          getDoc(ref),
+          FIRESTORE_TIMEOUT_MS,
+          'Timed out while joining the game'
+        )
+      } catch (error) {
+        throw new Error(getFriendlyFirestoreError(error))
+      }
       if (!snap.exists()) throw new Error('Session not found')
 
       myRole = role

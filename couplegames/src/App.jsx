@@ -17,10 +17,10 @@ function App() {
     if (setupMode === 'local') {
       await actions.startLocalGame(setup)
       setFlow('game')
-    } else {
-      await actions.createMultiplayerGame(setup)
-      setFlow('lobby')
+      return
     }
+    const ok = await actions.createMultiplayerGame(setup)
+    if (ok) setFlow('lobby')
   }
 
   if (flow === 'landing') {
@@ -38,6 +38,8 @@ function App() {
     return (
       <SetupScreen
         mode={setupMode}
+        loading={game.loading}
+        error={game.error}
         onBack={() => setFlow('landing')}
         onSubmit={handleSetupSubmit}
       />
@@ -47,16 +49,18 @@ function App() {
   if (flow === 'join') {
     return (
       <JoinScreen
+        loading={game.loading}
+        error={game.error}
         onBack={() => setFlow('landing')}
         onJoin={async (code, role) => {
-          await actions.joinMultiplayerGame(code, role)
-          setFlow('lobby')
+          const ok = await actions.joinMultiplayerGame(code, role)
+          if (ok) setFlow('lobby')
         }}
       />
     )
   }
 
-  if (session.phase === 'lobby' || flow === 'lobby') {
+  if ((session.phase === 'lobby' || flow === 'lobby') && session.code) {
     return (
       <LobbyScreen
         session={session}
