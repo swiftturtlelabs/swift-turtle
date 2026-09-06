@@ -1,5 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+// Starting the game takes two clicks: the start button opens the prize confirmation prompt
+async function startGame(page) {
+  await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+  await page.getByRole('button', { name: /Yes, let's go!/i }).click();
+}
+
 test.describe('Couple\'s Challenge App', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the app (baseURL is set in playwright.config.js)
@@ -24,7 +30,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should start game when button is clicked', async ({ page }) => {
     // Click start button
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Should navigate to first game
     await expect(page.getByText(/Game 1 of 10/i)).toBeVisible();
@@ -33,7 +39,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should display score display with both players', async ({ page }) => {
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Wait for game screen
     await expect(page.getByText(/Game 1 of 10/i)).toBeVisible();
@@ -49,7 +55,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should advance to next game when winner is selected', async ({ page }) => {
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Wait for first game
     await expect(page.getByText('Perfect Cut')).toBeVisible();
@@ -64,7 +70,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should update score when player wins', async ({ page }) => {
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Wait for first game
     await expect(page.getByText('Perfect Cut')).toBeVisible();
@@ -82,7 +88,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should show back button after first game', async ({ page }) => {
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Complete first game
     await expect(page.getByText('Perfect Cut')).toBeVisible();
@@ -97,7 +103,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should go back to previous game when back button is clicked', async ({ page }) => {
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Complete first game
     await expect(page.getByText('Perfect Cut')).toBeVisible();
@@ -115,7 +121,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should display Gram Master challenge with rounds', async ({ page }) => {
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Complete first game
     await expect(page.getByText('Perfect Cut')).toBeVisible();
@@ -134,7 +140,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should show progress bar', async ({ page }) => {
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Wait for game screen
     await expect(page.getByText(/Game 1 of 10/i)).toBeVisible();
@@ -146,7 +152,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should show transition page after 5th game', async ({ page }) => {
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Complete first 5 games
     for (let i = 0; i < 5; i++) {
@@ -163,7 +169,7 @@ test.describe('Couple\'s Challenge App', () => {
 
   test('should display final results after all games', async ({ page }) => {
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Complete all 10 games (this will take a while)
     for (let i = 0; i < 10; i++) {
@@ -199,7 +205,7 @@ test.describe('Couple\'s Challenge App', () => {
     await page.setViewportSize({ width: 375, height: 667 });
     
     // Start the game
-    await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await startGame(page);
     
     // Check that content is visible and properly sized
     await expect(page.getByText(/Game 1 of 10/i)).toBeVisible();

@@ -73,6 +73,7 @@ function App() {
   const [gramMasterTarget, setGramMasterTarget] = useState(null)
   const [gramMasterRounds, setGramMasterRounds] = useState({ player1: [], player2: [] })
   const [showScoreEdit, setShowScoreEdit] = useState(false)
+  const [showPrizeConfirm, setShowPrizeConfirm] = useState(false)
 
   // Generate random weight for Gram Master challenge
   useEffect(() => {
@@ -284,9 +285,11 @@ function App() {
     setWinners({})
     setGramMasterTarget(null)
     setGramMasterRounds({ player1: [], player2: [] })
+    setShowPrizeConfirm(false)
   }
 
   const startGame = () => {
+    setShowPrizeConfirm(false)
     setGameStarted(true)
     setCurrentGame(0)
   }
@@ -297,42 +300,71 @@ function App() {
       <div className="h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-10">
         <div className="max-w-2xl w-full text-center">
           {/* Back button - hidden on intro since there's nowhere to go back to */}
-          <h1 className="font-display text-5xl md:text-6xl font-semibold mb-5 md:mb-6 tracking-tight">Couple's Challenge</h1>
-          <p className="text-xl md:text-2xl text-[#c9beac] mb-7 md:mb-8 leading-relaxed">
-            Welcome to your competitive challenge series! You'll face 10 fun challenges designed to test your skills and creativity.
+          <h1 className="font-display text-4xl md:text-5xl font-semibold mb-3 md:mb-4 tracking-tight">Couple's Challenge</h1>
+          <p className="text-lg md:text-xl text-[#c9beac] mb-5 md:mb-6 leading-relaxed">
+            10 challenges. Two halves. One winner.
           </p>
 
           <div className="border border-[#463e34] rounded-sm p-5 md:p-6 mb-5 md:mb-6 text-left">
-            <h2 className="font-display text-2xl md:text-3xl font-semibold mb-4 md:mb-5">How It Works</h2>
+            <h2 className="font-display text-xl md:text-2xl font-semibold mb-3 md:mb-4">How It Works</h2>
             <div className="space-y-4 md:space-y-5">
               <div className="border-l-2 border-[#c96a4d] pl-4">
-                <h3 className="text-lg md:text-xl font-semibold text-[#e08a68] mb-2 md:mb-3">1st Half: At Home (5 Challenges)</h3>
-                <p className="text-base md:text-lg text-[#c9beac]">Start with challenges you can do right at home - testing precision, estimation, and creativity.</p>
+                <h3 className="text-base md:text-lg font-semibold text-[#e08a68] mb-1 md:mb-2">1st Half: At Home (5)</h3>
+                <p className="text-sm md:text-base text-[#c9beac]">Precision, estimation, and creativity — no need to leave the house.</p>
               </div>
               <div className="border-l-2 border-[#4d9a94] pl-4">
-                <h3 className="text-lg md:text-xl font-semibold text-[#6bbdb6] mb-2 md:mb-3">2nd Half: Out on the Town (5 Challenges)</h3>
-                <p className="text-base md:text-lg text-[#c9beac]">Then head out for challenges that will take you around town - hunting, searching, and exploring.</p>
+                <h3 className="text-base md:text-lg font-semibold text-[#6bbdb6] mb-1 md:mb-2">2nd Half: Out on the Town (5)</h3>
+                <p className="text-sm md:text-base text-[#c9beac]">Head out for hunting and searching around stores.</p>
               </div>
             </div>
           </div>
 
-          <div className="border border-[#463e34] rounded-sm p-5 md:p-6 mb-7 md:mb-8">
-            <h2 className="font-display text-2xl md:text-3xl font-semibold mb-3 md:mb-4">Pick a Prize!</h2>
-            <p className="text-base md:text-lg text-[#c9beac] mb-4 md:mb-5">
-              Before you start, decide on a prize for the winner! Maybe the winner picks where to eat lunch, gets to choose the next movie, or gets a special treat. Make it fun!
-            </p>
-            <p className="text-sm md:text-base text-[#8c8071] italic">
-              (Take a moment to discuss and agree on your prize now)
+          <div className="border border-[#463e34] rounded-sm p-5 md:p-6 mb-5 md:mb-6">
+            <h2 className="font-display text-xl md:text-2xl font-semibold mb-2 md:mb-3">Pick a Prize</h2>
+            <p className="text-sm md:text-base text-[#c9beac]">
+              Agree on the winner's prize now — who picks lunch, the next movie, a treat. Make it count. Make it fun!
             </p>
           </div>
 
           <button
-            onClick={startGame}
-            className="bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-bold py-4 md:py-5 px-8 md:px-10 rounded-sm text-2xl md:text-3xl transition-colors tracking-wide"
+            onClick={() => setShowPrizeConfirm(true)}
+            className="bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-bold py-3 md:py-4 px-8 md:px-10 rounded-sm text-xl md:text-2xl transition-colors tracking-wide"
           >
             LET THE GAMES BEGIN!
           </button>
         </div>
+
+        {showPrizeConfirm && (
+          <div className="fixed inset-0 bg-[#221e1a]/85 flex items-center justify-center p-4">
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="prize-confirm-title"
+              className="bg-[#2b2620] border border-[#463e34] rounded-sm p-5 md:p-6 max-w-sm w-full text-center"
+            >
+              <h2 id="prize-confirm-title" className="font-display text-xl md:text-2xl font-semibold mb-2 md:mb-3">
+                Prize settled?
+              </h2>
+              <p className="text-sm md:text-base text-[#c9beac] mb-5 md:mb-6">
+                Have you both agreed on what the winner gets?
+              </p>
+              <div className="flex gap-3 justify-center">
+                <button
+                  onClick={() => setShowPrizeConfirm(false)}
+                  className="border border-[#463e34] hover:border-[#c9beac] text-[#c9beac] hover:text-[#f3ead9] font-semibold py-2 px-4 rounded-sm transition-colors text-sm md:text-base"
+                >
+                  Not yet
+                </button>
+                <button
+                  onClick={startGame}
+                  className="bg-[#c96a4d] hover:bg-[#b85c40] text-[#221e1a] font-bold py-2 px-4 rounded-sm transition-colors text-sm md:text-base"
+                >
+                  Yes, let's go!
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     )
   }

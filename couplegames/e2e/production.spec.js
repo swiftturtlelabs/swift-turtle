@@ -33,8 +33,9 @@ test.describe('Production Site E2E Tests', () => {
   test('should be accessible and functional on production', async ({ page }) => {
     await page.goto(`${baseURL}/couplegames/`);
     
-    // Start the game
+    // Start the game (confirm the prize prompt first)
     await page.getByRole('button', { name: /LET THE GAMES BEGIN!/i }).click();
+    await page.getByRole('button', { name: /Yes, let's go!/i }).click();
     
     // Verify first game loads
     await expect(page.getByText(/Game 1 of 10/i)).toBeVisible({ timeout: 10000 });

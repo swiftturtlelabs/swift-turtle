@@ -3,6 +3,12 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 
+// Starting the game takes two clicks: the start button opens the prize confirmation prompt
+const startGame = async (user) => {
+  await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+  await user.click(screen.getByRole('button', { name: /Yes, let's go!/i }))
+}
+
 describe('App Component', () => {
   beforeEach(() => {
     // Reset any mocks or state before each test
@@ -30,8 +36,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      const startButton = screen.getByText('LET THE GAMES BEGIN!')
-      await user.click(startButton)
+      await startGame(user)
       
       // Should show first challenge
       await waitFor(() => {
@@ -40,12 +45,53 @@ describe('App Component', () => {
     })
   })
 
+  describe('Prize Confirmation', () => {
+    it('asks to confirm the prize before starting', async () => {
+      const user = userEvent.setup()
+      render(<App />)
+      
+      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      
+      // Prompt should appear instead of the first challenge
+      expect(screen.getByRole('dialog')).toBeInTheDocument()
+      expect(screen.getByText(/agreed on what the winner gets/i)).toBeInTheDocument()
+      expect(screen.queryByText(/Game 1 of 10/i)).not.toBeInTheDocument()
+    })
+
+    it('returns to the intro screen when the prize is not settled', async () => {
+      const user = userEvent.setup()
+      render(<App />)
+      
+      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await user.click(screen.getByRole('button', { name: /Not yet/i }))
+      
+      // Prompt dismissed, still on the intro screen
+      await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      })
+      expect(screen.getByText('LET THE GAMES BEGIN!')).toBeInTheDocument()
+      expect(screen.queryByText(/Game 1 of 10/i)).not.toBeInTheDocument()
+    })
+
+    it('starts the game once the prize is confirmed', async () => {
+      const user = userEvent.setup()
+      render(<App />)
+      
+      await startGame(user)
+      
+      await waitFor(() => {
+        expect(screen.getByText(/Game 1 of 10/i)).toBeInTheDocument()
+      })
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    })
+  })
+
   describe('Game Flow', () => {
     it('displays the first challenge after starting', async () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       await waitFor(() => {
         expect(screen.getByText('Perfect Cut')).toBeInTheDocument()
@@ -56,7 +102,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       await waitFor(() => {
         expect(screen.getByText(/Game 1 of 10/i)).toBeInTheDocument()
@@ -67,7 +113,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       await waitFor(() => {
         expect(screen.getByText('Kenny')).toBeInTheDocument()
@@ -81,7 +127,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       await waitFor(() => {
         expect(screen.getByText('Perfect Cut')).toBeInTheDocument()
@@ -100,7 +146,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       await waitFor(() => {
         expect(screen.getByText('Perfect Cut')).toBeInTheDocument()
@@ -126,7 +172,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       // Click through first game
       await waitFor(() => {
@@ -150,7 +196,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       // Navigate to Gram Master
       await waitFor(() => {
@@ -173,7 +219,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       // Complete first game to get to second game where back button shows
       await waitFor(() => {
@@ -193,7 +239,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       // Complete first game
       await waitFor(() => {
@@ -223,7 +269,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       // Win first game
       await waitFor(() => {
@@ -253,7 +299,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       await waitFor(() => {
         expect(screen.getByText(/0 completed/i)).toBeInTheDocument()
@@ -266,7 +312,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       await waitFor(() => {
         // Edit button should be present (emoji or text)
@@ -279,7 +325,7 @@ describe('App Component', () => {
       const user = userEvent.setup()
       render(<App />)
       
-      await user.click(screen.getByText('LET THE GAMES BEGIN!'))
+      await startGame(user)
       
       await waitFor(() => {
         const editButton = screen.getByTitle('Edit scores')
