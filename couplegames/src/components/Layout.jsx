@@ -6,9 +6,9 @@ export function ScreenShell({ children, className = '' }) {
   )
 }
 
-export function Card({ children, className = '' }) {
+export function Card({ children, className = '', compact = false }) {
   return (
-    <div className={`border border-[#463e34] rounded-sm p-5 md:p-6 ${className}`}>{children}</div>
+    <div className={`border border-[#463e34] rounded-sm ${compact ? 'p-3' : 'p-5 md:p-6'} ${className}`}>{children}</div>
   )
 }
 
