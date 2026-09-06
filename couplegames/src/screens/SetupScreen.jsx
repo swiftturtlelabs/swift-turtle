@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { ScreenShell, Card, PrimaryButton, SecondaryButton } from '../components/Layout.jsx'
+import { ScreenShell, Card, PrimaryButton } from '../components/Layout.jsx'
 import { DEFAULT_PLAYERS, loadStoredPlayerPrefs } from '../session/gameLogic.js'
-
-const EMOJI_OPTIONS = ['🎯', '✨', '🔥', '💫', '🌟', '⚡', '🎨', '🏆']
+import { ColorPicker, PlayerOptionButton } from '../components/PlayerColor.jsx'
 
 export function SetupScreen({ mode, onBack, onSubmit }) {
   const stored = loadStoredPlayerPrefs()
@@ -24,25 +23,21 @@ export function SetupScreen({ mode, onBack, onSubmit }) {
       <button onClick={onBack} className="mb-4 text-[#8c8071] hover:text-[#c9beac] text-sm">← Back</button>
       <h1 className="font-display text-3xl font-semibold mb-4 text-center">Game setup</h1>
 
-      <Card className="mb-4 space-y-4">
+      <Card className="mb-4 space-y-5">
         {(['player1', 'player2']).map((key) => (
-          <div key={key} className="space-y-2">
+          <div key={key} className="space-y-3 pb-4 last:pb-0 border-b border-[#463e34] last:border-0">
             <label className="text-sm text-[#8c8071]">Player {key === 'player1' ? '1' : '2'}</label>
-            <div className="flex gap-2">
-              <select
-                value={players[key].emoji}
-                onChange={(e) => updatePlayer(key, 'emoji', e.target.value)}
-                className="bg-[#2b2620] border border-[#463e34] rounded-sm px-2"
-              >
-                {EMOJI_OPTIONS.map((e) => <option key={e} value={e}>{e}</option>)}
-              </select>
-              <input
-                value={players[key].name}
-                onChange={(e) => updatePlayer(key, 'name', e.target.value)}
-                className="flex-1 bg-[#2b2620] border border-[#463e34] rounded-sm px-3 py-2"
-                placeholder="Name"
-              />
-            </div>
+            <input
+              value={players[key].name}
+              onChange={(e) => updatePlayer(key, 'name', e.target.value)}
+              className="w-full bg-[#2b2620] border border-[#463e34] rounded-sm px-3 py-2"
+              placeholder="Name"
+            />
+            <ColorPicker
+              label="Color"
+              value={players[key].color}
+              onChange={(color) => updatePlayer(key, 'color', color)}
+            />
           </div>
         ))}
       </Card>
@@ -61,14 +56,12 @@ export function SetupScreen({ mode, onBack, onSubmit }) {
         <label className="text-sm text-[#8c8071] block mb-2">Scorekeeper</label>
         <div className="grid grid-cols-2 gap-2">
           {(['player1', 'player2']).map((key) => (
-            <button
+            <PlayerOptionButton
               key={key}
-              type="button"
+              player={players[key]}
+              selected={scorekeeper === key}
               onClick={() => setScorekeeper(key)}
-              className={`py-2 rounded-sm border ${scorekeeper === key ? 'border-[#c96a4d] bg-[#c96a4d]/20' : 'border-[#463e34]'}`}
-            >
-              {players[key].emoji} {players[key].name}
-            </button>
+            />
           ))}
         </div>
       </Card>
@@ -78,14 +71,12 @@ export function SetupScreen({ mode, onBack, onSubmit }) {
           <label className="text-sm text-[#8c8071] block mb-2">I am...</label>
           <div className="grid grid-cols-2 gap-2">
             {(['player1', 'player2']).map((key) => (
-              <button
+              <PlayerOptionButton
                 key={key}
-                type="button"
+                player={players[key]}
+                selected={myRole === key}
                 onClick={() => setMyRole(key)}
-                className={`py-2 rounded-sm border ${myRole === key ? 'border-[#c96a4d] bg-[#c96a4d]/20' : 'border-[#463e34]'}`}
-              >
-                {players[key].emoji} {players[key].name}
-              </button>
+              />
             ))}
           </div>
         </Card>

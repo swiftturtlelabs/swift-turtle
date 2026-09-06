@@ -1,4 +1,5 @@
 import { CHALLENGES } from '../challenges.js'
+import { PlayerLabel } from '../components/PlayerColor.jsx'
 import { ScreenShell, Card, PrimaryButton, SecondaryButton } from '../components/Layout.jsx'
 
 export function ResultsScreen({ session, scores, isScorekeeper, onBack, onPlayAgain, onViewScrapbook, onDeleteGame }) {
@@ -12,7 +13,7 @@ export function ResultsScreen({ session, scores, isScorekeeper, onBack, onPlayAg
       {winner !== 'tie' && winnerInfo && (
         <Card className="mb-4 text-center border-t-4" style={{ borderColor: winnerInfo.color }}>
           <h2 className="font-display text-2xl font-semibold mb-1" style={{ color: winnerInfo.color }}>
-            {winnerInfo.emoji} {winnerInfo.name} wins!
+            {winnerInfo.name} wins!
           </h2>
           {session.prize && (
             <p className="text-[#c9beac]">Prize: {session.prize}</p>
@@ -29,7 +30,7 @@ export function ResultsScreen({ session, scores, isScorekeeper, onBack, onPlayAg
       <Card className="mb-4">
         {(['player1', 'player2']).map((key) => (
           <div key={key} className="flex justify-between items-center mb-2 last:mb-0">
-            <span className="font-semibold">{session.players[key].emoji} {session.players[key].name}</span>
+            <PlayerLabel player={session.players[key]} />
             <span className="font-display text-3xl" style={{ color: session.players[key].color }}>{scores[key]}</span>
           </div>
         ))}
@@ -42,7 +43,7 @@ export function ResultsScreen({ session, scores, isScorekeeper, onBack, onPlayAg
           return (
             <div key={c.id} className="flex justify-between py-2 border-b border-[#463e34] last:border-0 text-sm">
               <span>Game {c.id}: {c.title}</span>
-              <span className="text-[#8c8071]">
+              <span style={{ color: w ? session.players[w].color : undefined }} className={w ? 'font-semibold' : 'text-[#8c8071]'}>
                 {w ? session.players[w].name : 'Not played'}
               </span>
             </div>

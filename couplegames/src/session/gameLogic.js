@@ -1,8 +1,9 @@
 import { CHALLENGES, CHALLENGE_COUNT } from '../challenges.js'
+import { normalizePlayers } from '../playerColors.js'
 
 export const DEFAULT_PLAYERS = {
-  player1: { name: 'Kenny', color: '#e08a68', emoji: '🎯' },
-  player2: { name: 'Katie', color: '#6bbdb6', emoji: '✨' },
+  player1: { name: 'Kenny', color: '#e08a68' },
+  player2: { name: 'Katie', color: '#6bbdb6' },
 }
 
 export function createInitialSession(overrides = {}) {
@@ -243,7 +244,7 @@ export function loadStoredPlayerPrefs() {
   try {
     const raw = localStorage.getItem('couplegames_players')
     if (!raw) return null
-    return JSON.parse(raw)
+    return normalizePlayers(JSON.parse(raw))
   } catch {
     return null
   }

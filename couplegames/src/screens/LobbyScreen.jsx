@@ -1,3 +1,4 @@
+import { PlayerLabel } from '../components/PlayerColor.jsx'
 import { ScreenShell, Card, PrimaryButton } from '../components/Layout.jsx'
 import { ScoreBoard } from '../components/ScoreBoard.jsx'
 
@@ -23,8 +24,8 @@ export function LobbyScreen({ session, scores, isScorekeeper, onBegin }) {
           </Card>
         )}
 
-        <p className="text-sm text-[#8c8071] mb-4">
-          Scorekeeper: {session.players[session.scorekeeper]?.emoji} {session.players[session.scorekeeper]?.name}
+        <p className="text-sm text-[#8c8071] mb-4 flex justify-center">
+          Scorekeeper: <PlayerLabel player={session.players[session.scorekeeper]} className="ml-2" />
         </p>
 
         {isScorekeeper ? (
