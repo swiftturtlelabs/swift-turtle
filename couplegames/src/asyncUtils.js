@@ -11,7 +11,7 @@ export function getFriendlyFirestoreError(error) {
   const code = error?.code || ''
   const message = error?.message || String(error)
 
-  if (code === 'permission-denied') {
+  if (code === 'permission-denied' || /insufficient permissions/i.test(message)) {
     return 'Could not reach the game server (permission denied). Firestore rules may need to be deployed.'
   }
   if (code === 'unavailable' || /offline/i.test(message)) {

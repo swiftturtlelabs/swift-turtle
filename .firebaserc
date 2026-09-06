@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "swift-turtle-com"
+    "default": "swift-turtle-com",
+    "photoscavenger": "photoscavenger-b16e2"
   }
 }
