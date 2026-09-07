@@ -54,13 +54,17 @@ export function PlayerLabel({ player, className = '' }) {
   )
 }
 
-export function PlayerOptionButton({ player, selected, onClick, disabled = false }) {
+export function PlayerOptionButton({ player, selected, onClick, disabled = false, large = false }) {
+  const sizeClass = large
+    ? 'py-3 px-3 text-base font-semibold min-h-[3rem]'
+    : 'py-1.5 px-2 text-sm'
+
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`py-1.5 px-2 text-sm rounded-sm border flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${selected ? '' : 'border-[#463e34]'}`}
+      className={`w-full ${sizeClass} rounded-sm border flex items-center justify-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${selected ? '' : 'border-[#463e34]'}`}
       style={selected ? { borderColor: player.color, backgroundColor: `${player.color}22` } : undefined}
     >
       <span style={{ color: player.color }}>{player.name}</span>

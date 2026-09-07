@@ -218,16 +218,17 @@ export function JoinScreen({ onBack, onJoin, onPeekCode, loading = false, error 
         {preview && (
           <div>
             <label className="text-xs text-[#8c8071] block mb-1">I am...</label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-3">
               {(['player1', 'player2']).map((key) => (
-                <div key={key}>
+                <div key={key} className="space-y-1">
                   <PlayerOptionButton
+                    large
                     player={preview.players[key]}
                     selected={role === key}
                     onClick={() => setRole(key)}
                   />
                   {roleConnected(key) && (
-                    <p className="text-xs text-[#e08a68] mt-1 text-center">Connected elsewhere</p>
+                    <p className="text-xs text-[#e08a68] text-center leading-tight">Connected elsewhere</p>
                   )}
                 </div>
               ))}
