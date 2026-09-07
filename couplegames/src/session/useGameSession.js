@@ -105,11 +105,12 @@ export function useGameSession() {
   const createMultiplayerGame = useCallback(async (setup) => {
     const prefs = loadStoredPlayerPrefs()
     const players = setup.players || prefs || session.players
+    const role = setup.myRole || 'player1'
     saveStoredPlayerPrefs(players)
-    saveStoredRole('player1')
-    setMyRole('player1')
+    saveStoredRole(role)
+    setMyRole(role)
     return runMultiplayerAction(async () => {
-      await backendRef.current?.createSession({ ...setup, players, myRole: 'player1' })
+      await backendRef.current?.createSession({ ...setup, players, myRole: role })
     })
   }, [runMultiplayerAction, session.players])
 

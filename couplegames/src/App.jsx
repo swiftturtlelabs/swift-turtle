@@ -57,8 +57,8 @@ function App() {
         error={game.error}
         onPeekCode={actions.peekSessionCode}
         onBack={() => setFlow('landing')}
-        onJoin={async (code) => {
-          const ok = await actions.joinMultiplayerGame(code, 'player2')
+        onJoin={async (code, role) => {
+          const ok = await actions.joinMultiplayerGame(code, role)
           if (ok) setFlow('lobby')
         }}
       />

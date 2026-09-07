@@ -7,6 +7,7 @@ export function SetupScreen({ mode, onBack, onSubmit, loading = false, error = n
   const stored = loadStoredPlayerPrefs()
   const [players, setPlayers] = useState(stored || DEFAULT_PLAYERS)
   const [scorekeeper, setScorekeeper] = useState('player1')
+  const [myRole, setMyRole] = useState('player1')
   const [prize, setPrize] = useState('')
   const [prizeError, setPrizeError] = useState('')
 
@@ -21,14 +22,13 @@ export function SetupScreen({ mode, onBack, onSubmit, loading = false, error = n
       return
     }
     setPrizeError('')
-    onSubmit({ players, scorekeeper, prize: trimmedPrize, myRole: 'player1' })
+    onSubmit({ players, scorekeeper, prize: trimmedPrize, myRole: mode === 'multiplayer' ? myRole : 'player1' })
   }
 
   const prizeValid = prize.trim().length > 0
   const setupFooter = mode === 'multiplayer' ? (
     <div className="sticky bottom-0 w-full border-t border-[#463e34] bg-[#1a1613] px-3 py-2 text-xs sm:text-sm text-[#8c8071]">
-      You are <span className="font-semibold ml-1" style={{ color: players.player1.color }}>{players.player1.name}</span>
-      <span className="text-[#8c8071]"> (host)</span>
+      You are <span className="font-semibold ml-1" style={{ color: players[myRole].color }}>{players[myRole].name}</span>
     </div>
   ) : null
 
@@ -95,6 +95,21 @@ export function SetupScreen({ mode, onBack, onSubmit, loading = false, error = n
           </div>
         </div>
 
+        {mode === 'multiplayer' && (
+          <div>
+            <label className="text-xs text-[#8c8071] block mb-1">I am...</label>
+            <div className="grid grid-cols-2 gap-2">
+              {(['player1', 'player2']).map((key) => (
+                <PlayerOptionButton
+                  key={key}
+                  player={players[key]}
+                  selected={myRole === key}
+                  onClick={() => setMyRole(key)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </Card>
 
       {error && (
@@ -110,9 +125,9 @@ export function SetupScreen({ mode, onBack, onSubmit, loading = false, error = n
 
 export function JoinScreen({ onBack, onJoin, onPeekCode, loading = false, error = null }) {
   const [code, setCode] = useState('')
+  const [role, setRole] = useState('player2')
   const [preview, setPreview] = useState(null)
   const [peekError, setPeekError] = useState('')
-  const role = 'player2'
 
   useEffect(() => {
     if (!onPeekCode || code.length !== 4) {
@@ -140,14 +155,29 @@ export function JoinScreen({ onBack, onJoin, onPeekCode, loading = false, error 
     }
   }, [code, onPeekCode])
 
+  useEffect(() => {
+    if (!preview?.presence) return
+    if (!preview.presence.player2) setRole('player2')
+    else if (!preview.presence.player1) setRole('player1')
+  }, [preview])
+
+  const roleConnected = (key) => Boolean(preview?.presence?.[key])
+
   const handleJoin = () => {
-    onJoin(code)
+    if (!preview) return
+    const name = preview.players[role]?.name || 'this player'
+    if (roleConnected(role)) {
+      const ok = window.confirm(
+        `${name} looks already connected from another device.\n\nJoin anyway? Use this if the other browser closed or got stuck.`
+      )
+      if (!ok) return
+    }
+    onJoin(code, role)
   }
 
-  const partnerConnected = Boolean(preview?.presence?.player2)
-  const joinFooter = preview?.players?.player2 ? (
+  const joinFooter = preview?.players?.[role] ? (
     <div className="sticky bottom-0 w-full border-t border-[#463e34] bg-[#1a1613] px-3 py-2 text-xs sm:text-sm text-[#8c8071]">
-      You are <PlayerLabel player={preview.players.player2} className="ml-1" />
+      You are <PlayerLabel player={preview.players[role]} className="ml-1" />
     </div>
   ) : null
 
@@ -185,17 +215,33 @@ export function JoinScreen({ onBack, onJoin, onPeekCode, loading = false, error 
           <p className="text-xs text-[#e08a68]" role="alert">{peekError}</p>
         )}
 
-        {preview && partnerConnected && (
-          <p className="text-xs text-[#e08a68]">Someone is already connected as {preview.players.player2.name}.</p>
+        {preview && (
+          <div>
+            <label className="text-xs text-[#8c8071] block mb-1">I am...</label>
+            <div className="grid grid-cols-2 gap-2">
+              {(['player1', 'player2']).map((key) => (
+                <div key={key}>
+                  <PlayerOptionButton
+                    player={preview.players[key]}
+                    selected={role === key}
+                    onClick={() => setRole(key)}
+                  />
+                  {roleConnected(key) && (
+                    <p className="text-xs text-[#e08a68] mt-1 text-center">Connected elsewhere</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         {error && <p className="text-xs text-[#e08a68]" role="alert">{error}</p>}
         <PrimaryButton
           className="w-full py-3"
           onClick={handleJoin}
-          disabled={loading || code.length < 4 || !preview || partnerConnected}
+          disabled={loading || code.length < 4 || !preview}
         >
-          {loading ? 'Joining…' : preview ? `Join as ${preview.players.player2.name}` : 'Join'}
+          {loading ? 'Joining…' : preview ? `Join as ${preview.players[role].name}` : 'Join'}
         </PrimaryButton>
       </Card>
     </ScreenShell>
