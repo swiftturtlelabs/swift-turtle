@@ -24,9 +24,17 @@ export function createInitialSession(overrides = {}) {
     measurements: {},
     photoMeta: {},
     presence: { player1: false, player2: false },
+    handoffRequest: null,
+    pendingChange: null,
     ...overrides,
   }
 }
+
+export const GRAM_MASTER_INSTRUCTIONS = `Go around the house and find something you think is as close to the target weight as possible. Best out of 3 wins!
+
+Tip 1: Before starting, agree on a random item to weigh so everyone has a basic idea of how many grams something weighs.
+
+Tip 2: Agree on a max time to find an item (like 2 minutes).`
 
 export function generateGramMasterTargets(count = 3) {
   return Array.from({ length: count }, () =>
@@ -113,11 +121,34 @@ export function getChallengeDescription(challenge, session, gameIndex) {
     const roundNum = session.gramMaster.roundWinners.length + 1
     const target = session.gramMaster.targets[session.gramMaster.roundWinners.length]
     if (target != null) {
-      return `Round ${Math.min(roundNum, 3)} of 3: Find an item as close to ${target} grams as possible. Best of 3 wins.`
+      return `Round ${Math.min(roundNum, 3)} of 3: Find an item as close to ${target} grams as possible.`
     }
   }
 
   return challenge.description
+}
+
+export function clearChallengeProgress(session, gameIndex) {
+  const challenge = CHALLENGES[gameIndex]
+  if (!challenge) {
+    return { measurements: session.measurements, timers: session.timers }
+  }
+
+  const measurements = { ...session.measurements }
+  const timers = { ...session.timers }
+  const id = challenge.id
+
+  if (challenge.gramMaster) {
+    Object.keys(measurements).forEach((key) => {
+      if (key.startsWith(`${id}_r`)) delete measurements[key]
+    })
+  } else {
+    delete measurements[id]
+    delete measurements[String(id)]
+    delete timers[id]
+  }
+
+  return { measurements, timers }
 }
 
 export function shouldAutoJudge(challenge, session, gameIndex) {

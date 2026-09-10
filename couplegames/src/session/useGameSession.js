@@ -10,6 +10,8 @@ import {
   getChallengeDescription,
   getGramMasterRoundCounts,
   getPlayerName,
+  getPartnerRole,
+  clearChallengeProgress,
   isPartnerConnected,
   loadStoredPlayerPrefs,
   loadStoredRole,
@@ -150,38 +152,123 @@ export function useGameSession() {
       gramMaster: next.gramMaster,
       phase: next.phase,
       currentGame: next.currentGame,
+      pendingChange: null,
     })
   }, [isScorekeeper, session])
+
+  const proposeWinner = useCallback(async (player) => {
+    if (!isScorekeeper) return
+    if (session.mode === 'local') {
+      await recordWinner(player)
+      return
+    }
+    await backendRef.current?.updateSession({
+      pendingChange: {
+        type: 'winner',
+        proposedBy: myRole,
+        gameIndex: session.currentGame,
+        player,
+      },
+    })
+  }, [isScorekeeper, myRole, recordWinner, session.currentGame, session.mode])
+
+  const proposeScoreEdit = useCallback(async (payload) => {
+    if (!isScorekeeper) return
+    if (session.mode === 'local') {
+      await backendRef.current?.updateSession({
+        winners: payload.winners,
+        gramMaster: payload.gramMaster,
+        currentGame: payload.currentGame,
+        phase: payload.phase,
+      })
+      return
+    }
+    await backendRef.current?.updateSession({
+      pendingChange: {
+        type: 'scores',
+        proposedBy: myRole,
+        winners: payload.winners,
+        gramMaster: payload.gramMaster,
+        currentGame: payload.currentGame,
+        phase: payload.phase,
+      },
+    })
+  }, [isScorekeeper, myRole, session.mode])
+
+  const approvePendingChange = useCallback(async () => {
+    const pending = session.pendingChange
+    if (!pending || pending.proposedBy === myRole) return
+
+    if (pending.type === 'winner') {
+      const next = applyWinner(session, pending.gameIndex, pending.player)
+      await backendRef.current?.updateSession({
+        winners: next.winners,
+        gramMaster: next.gramMaster,
+        phase: next.phase,
+        currentGame: next.currentGame,
+        pendingChange: null,
+      })
+      return
+    }
+
+    if (pending.type === 'scores') {
+      await backendRef.current?.updateSession({
+        winners: pending.winners,
+        gramMaster: pending.gramMaster,
+        currentGame: pending.currentGame,
+        phase: pending.phase,
+        pendingChange: null,
+      })
+    }
+  }, [myRole, session])
+
+  const rejectPendingChange = useCallback(async () => {
+    if (!session.pendingChange || session.pendingChange.proposedBy === myRole) return
+    await backendRef.current?.updateField('pendingChange', null)
+  }, [myRole, session.pendingChange])
 
   const goBack = useCallback(async () => {
     if (!isScorekeeper) return
     if (session.phase === 'halftime' || session.currentGame === -1) {
       const next = undoCurrentGame(session, 4)
+      const cleared = clearChallengeProgress(next, 4)
       await backendRef.current?.updateSession({
         winners: next.winners,
         gramMaster: next.gramMaster,
         phase: 'playing',
         currentGame: 4,
+        measurements: cleared.measurements,
+        timers: cleared.timers,
+        pendingChange: null,
       })
       return
     }
     if (session.phase === 'results' || session.currentGame === CHALLENGE_COUNT) {
       const next = undoCurrentGame(session, CHALLENGE_COUNT - 1)
+      const cleared = clearChallengeProgress(next, CHALLENGE_COUNT - 1)
       await backendRef.current?.updateSession({
         winners: next.winners,
         gramMaster: next.gramMaster,
         phase: 'playing',
         currentGame: CHALLENGE_COUNT - 1,
+        measurements: cleared.measurements,
+        timers: cleared.timers,
+        pendingChange: null,
       })
       return
     }
     if (session.currentGame > 0) {
-      const next = undoCurrentGame(session, session.currentGame)
+      const gameIndex = session.currentGame
+      const next = undoCurrentGame(session, gameIndex)
+      const cleared = clearChallengeProgress(next, gameIndex)
       await backendRef.current?.updateSession({
         winners: next.winners,
         gramMaster: next.gramMaster,
         phase: 'playing',
-        currentGame: session.currentGame - 1,
+        currentGame: gameIndex - 1,
+        measurements: cleared.measurements,
+        timers: cleared.timers,
+        pendingChange: null,
       })
     }
   }, [isScorekeeper, session])
@@ -198,9 +285,32 @@ export function useGameSession() {
   }, [])
 
   const handoffScorekeeper = useCallback(async () => {
-    const next = session.scorekeeper === 'player1' ? 'player2' : 'player1'
-    await backendRef.current?.updateSession({ scorekeeper: next })
-  }, [session.scorekeeper])
+    if (!isScorekeeper) return
+    const partner = getPartnerRole(session.scorekeeper)
+    const partnerName = getPlayerName(session, partner)
+
+    if (session.mode === 'local') {
+      if (window.confirm(`Hand scorekeeping to ${partnerName}?`)) {
+        await backendRef.current?.updateSession({ scorekeeper: partner })
+      }
+      return
+    }
+
+    if (!window.confirm(`Ask ${partnerName} to take over scorekeeping? They'll need to accept.`)) return
+    await backendRef.current?.updateSession({
+      handoffRequest: { from: session.scorekeeper, to: partner },
+    })
+  }, [isScorekeeper, session])
+
+  const respondHandoff = useCallback(async (accept) => {
+    const req = session.handoffRequest
+    if (!req || req.to !== myRole) return
+    if (accept) {
+      await backendRef.current?.updateSession({ scorekeeper: req.to, handoffRequest: null })
+    } else {
+      await backendRef.current?.updateField('handoffRequest', null)
+    }
+  }, [myRole, session.handoffRequest])
 
   const setMeasurement = useCallback(async (key, player, value) => {
     const current = session.measurements[key] || {}
@@ -386,10 +496,15 @@ export function useGameSession() {
       peekSessionCode,
       beginFromLobby,
       recordWinner,
+      proposeWinner,
+      proposeScoreEdit,
+      approvePendingChange,
+      rejectPendingChange,
       goBack,
       continueToSecondHalf,
       resetGame,
       handoffScorekeeper,
+      respondHandoff,
       setMeasurement,
       startTimer,
       stopTimer,

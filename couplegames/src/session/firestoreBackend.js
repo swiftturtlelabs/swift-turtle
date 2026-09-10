@@ -252,5 +252,7 @@ function normalizeFirestoreSession(data, code) {
     measurements: data.measurements || {},
     photoMeta: data.photoMeta || {},
     presence: normalizePresence(data.presence),
+    handoffRequest: data.handoffRequest || null,
+    pendingChange: data.pendingChange || null,
   }
 }

@@ -140,8 +140,12 @@ function App() {
         photos={game.photos}
         footer={mpFooter}
         onBack={actions.goBack}
-        onRecordWinner={actions.recordWinner}
+        onProposeWinner={actions.proposeWinner}
+        onProposeScoreEdit={actions.proposeScoreEdit}
         onHandoff={actions.handoffScorekeeper}
+        onRespondHandoff={actions.respondHandoff}
+        onApprovePending={actions.approvePendingChange}
+        onRejectPending={actions.rejectPendingChange}
         onStartTimer={actions.startTimer}
         onStopTimer={actions.stopTimer}
         onSetMeasurement={actions.setMeasurement}

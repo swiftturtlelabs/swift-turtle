@@ -1,9 +1,16 @@
 import { ScreenShell, Card, PrimaryButton, SecondaryButton } from '../components/Layout.jsx'
-import { ScoreBoard, ScorekeeperBanner } from '../components/ScoreBoard.jsx'
+import {
+  ScoreBoard,
+  ScorekeeperBanner,
+  PendingChangeBanner,
+  ScorekeeperWinnerPick,
+  ScorekeeperScoreEditor,
+} from '../components/ScoreBoard.jsx'
 import { GameTimer } from '../components/GameTimer.jsx'
 import { MeasurementEntry } from '../components/MeasurementEntry.jsx'
 import { PhotoCapture } from '../components/PhotoCapture.jsx'
 import { CHALLENGE_COUNT } from '../challenges.js'
+import { GRAM_MASTER_INSTRUCTIONS } from '../session/gameLogic.js'
 
 export function ChallengeScreen({
   session,
@@ -16,8 +23,12 @@ export function ChallengeScreen({
   clockOffsetMs,
   photos,
   onBack,
-  onRecordWinner,
+  onProposeWinner,
+  onProposeScoreEdit,
   onHandoff,
+  onRespondHandoff,
+  onApprovePending,
+  onRejectPending,
   onStartTimer,
   onStopTimer,
   onSetMeasurement,
@@ -36,11 +47,25 @@ export function ChallengeScreen({
   return (
     <ScreenShell footer={footer}>
       {currentGame > 0 && isScorekeeper && (
-        <button onClick={onBack} className="mb-3 text-[#8c8071] hover:text-[#c9beac] text-sm">← Back</button>
+        <button type="button" onClick={onBack} className="mb-3 text-[#8c8071] hover:text-[#c9beac] text-sm">← Back</button>
       )}
 
       {session.mode === 'multiplayer' && (
-        <ScorekeeperBanner session={session} isScorekeeper={isScorekeeper} onHandoff={onHandoff} />
+        <>
+          <ScorekeeperBanner
+            session={session}
+            isScorekeeper={isScorekeeper}
+            myRole={myRole}
+            onHandoff={onHandoff}
+            onRespondHandoff={onRespondHandoff}
+          />
+          <PendingChangeBanner
+            session={session}
+            myRole={myRole}
+            onApprove={onApprovePending}
+            onReject={onRejectPending}
+          />
+        </>
       )}
 
       <div className="mb-6">
@@ -60,17 +85,21 @@ export function ChallengeScreen({
       <Card className="mb-6">
         <div className="text-sm text-[#8c8071] mb-2 uppercase tracking-wide">{challenge.phase}</div>
         <h1 className="font-display text-3xl font-semibold mb-3">{challenge.title}</h1>
-        <p className="text-[#c9beac] leading-relaxed">{description}</p>
 
-        {challenge.gramMaster && (
-          <div className="mt-4 pt-4 border-t border-[#463e34]">
-            <div className="text-xs text-[#8c8071] mb-2">Round scoreboard (best of 3)</div>
-            <div className="flex justify-between text-sm">
-              <span style={{ color: p1.color }}>{p1.name}: {gramCounts.player1 || 0}</span>
-              <span style={{ color: p2.color }}>{p2.name}: {gramCounts.player2 || 0}</span>
+        {challenge.gramMaster ? (
+          <div className="space-y-4">
+            <p className="text-[#c9beac] leading-relaxed text-sm whitespace-pre-line">{GRAM_MASTER_INSTRUCTIONS}</p>
+            <div className="pt-4 border-t border-[#463e34]">
+              <div className="text-xs text-[#8c8071] mb-2">Round scoreboard (best of 3)</div>
+              <div className="flex justify-between text-sm">
+                <span style={{ color: p1.color }}>{p1.name}: {gramCounts.player1 || 0}</span>
+                <span style={{ color: p2.color }}>{p2.name}: {gramCounts.player2 || 0}</span>
+              </div>
+              <p className="text-[#c9beac] leading-relaxed mt-3">{description}</p>
             </div>
-            <div className="text-xs text-[#8c8071] mt-1">Round {Math.min(session.gramMaster.roundWinners.length + 1, 3)} of 3</div>
           </div>
+        ) : (
+          <p className="text-[#c9beac] leading-relaxed">{description}</p>
         )}
 
         {challenge.timer && (
@@ -121,25 +150,19 @@ export function ChallengeScreen({
       </Card>
 
       {isScorekeeper && (
-        challenge.gramMaster && !challenge.measure ? (
-          <div className="grid grid-cols-2 gap-4">
-            <button onClick={() => onRecordWinner('player1')} className="font-semibold py-4 rounded-sm text-[#221e1a]" style={{ backgroundColor: p1.color }}>
-              {p1.name} won this round
-            </button>
-            <button onClick={() => onRecordWinner('player2')} className="font-semibold py-4 rounded-sm text-[#221e1a]" style={{ backgroundColor: p2.color }}>
-              {p2.name} won this round
-            </button>
-          </div>
-        ) : challenge.timer?.mode === 'countdown' || (!challenge.measure && !challenge.timer) ? (
-          <div className="grid grid-cols-2 gap-4">
-            <button onClick={() => onRecordWinner('player1')} className="font-semibold py-4 rounded-sm text-[#221e1a]" style={{ backgroundColor: p1.color }}>
-              {p1.name} won
-            </button>
-            <button onClick={() => onRecordWinner('player2')} className="font-semibold py-4 rounded-sm text-[#221e1a]" style={{ backgroundColor: p2.color }}>
-              {p2.name} won
-            </button>
-          </div>
-        ) : null
+        <>
+          <ScorekeeperWinnerPick
+            session={session}
+            challenge={challenge}
+            onProposeWinner={onProposeWinner}
+            pendingChange={session.pendingChange}
+          />
+          <ScorekeeperScoreEditor
+            session={session}
+            onProposeScoreEdit={onProposeScoreEdit}
+            pendingChange={session.pendingChange}
+          />
+        </>
       )}
     </ScreenShell>
   )

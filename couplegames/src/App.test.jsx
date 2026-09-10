@@ -36,8 +36,8 @@ describe('App Component', () => {
       await waitFor(() => {
         expect(screen.getByText(/Game 1 of 10/i)).toBeInTheDocument()
       })
-      expect(screen.getByText(/Kenny/)).toBeInTheDocument()
-      expect(screen.getByText(/Katie/)).toBeInTheDocument()
+      expect(screen.getAllByText(/Kenny/).length).toBeGreaterThan(0)
+      expect(screen.getAllByText(/Katie/).length).toBeGreaterThan(0)
     })
 
     it('allows customizing player names', async () => {
@@ -52,8 +52,8 @@ describe('App Component', () => {
       await user.type(screen.getByPlaceholderText(/Who picks lunch/i), 'Pick the movie')
       await user.click(screen.getByRole('button', { name: /Continue/i }))
       await waitFor(() => {
-        expect(screen.getByText(/Alex/)).toBeInTheDocument()
-        expect(screen.getByText(/Sam/)).toBeInTheDocument()
+        expect(screen.getAllByText(/Alex/).length).toBeGreaterThan(0)
+        expect(screen.getAllByText(/Sam/).length).toBeGreaterThan(0)
       })
     })
 
