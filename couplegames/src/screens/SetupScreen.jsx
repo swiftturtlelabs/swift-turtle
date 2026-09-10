@@ -27,13 +27,13 @@ export function SetupScreen({ mode, onBack, onSubmit, loading = false, error = n
 
   const prizeValid = prize.trim().length > 0
   const setupFooter = mode === 'multiplayer' ? (
-    <div className="sticky bottom-0 w-full border-t border-[#463e34] bg-[#1a1613] px-3 py-2 text-xs sm:text-sm text-[#8c8071]">
+    <div className="w-full border-t border-[#463e34] bg-[#1a1613] px-4 py-2.5 text-xs sm:text-sm text-[#8c8071]">
       You are <span className="font-semibold ml-1" style={{ color: players[myRole].color }}>{players[myRole].name}</span>
     </div>
   ) : null
 
   return (
-    <ScreenShell className="pt-4 p-3 pb-4" footer={setupFooter}>
+    <ScreenShell className="!pt-4 !px-3 !pb-4" footer={setupFooter}>
       <button onClick={onBack} className="mb-2 text-[#8c8071] hover:text-[#c9beac] text-sm">← Back</button>
       <h1 className="font-display text-2xl font-semibold mb-3 text-center">Game setup</h1>
 
@@ -176,13 +176,13 @@ export function JoinScreen({ onBack, onJoin, onPeekCode, loading = false, error 
   }
 
   const joinFooter = preview?.players?.[role] ? (
-    <div className="sticky bottom-0 w-full border-t border-[#463e34] bg-[#1a1613] px-3 py-2 text-xs sm:text-sm text-[#8c8071]">
+    <div className="w-full border-t border-[#463e34] bg-[#1a1613] px-4 py-2.5 text-xs sm:text-sm text-[#8c8071]">
       You are <PlayerLabel player={preview.players[role]} className="ml-1" />
     </div>
   ) : null
 
   return (
-    <ScreenShell className="pt-4 p-3 pb-4" footer={joinFooter}>
+    <ScreenShell className="!pt-4 !px-3 !pb-4" footer={joinFooter}>
       <button onClick={onBack} className="mb-2 text-[#8c8071] hover:text-[#c9beac] text-sm">← Back</button>
       <h1 className="font-display text-2xl font-semibold mb-3 text-center">Join a game</h1>
       <Card compact className="space-y-3">

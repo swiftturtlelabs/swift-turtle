@@ -1,8 +1,14 @@
 export function ScreenShell({ children, className = '', footer = null }) {
   return (
-    <div className={`h-screen overflow-y-auto bg-[#221e1a] text-[#f3ead9] flex flex-col items-center justify-start pt-6 md:pt-8 p-4 md:p-8 pb-4 ${className}`}>
-      <div className="max-w-2xl w-full flex-1 min-h-0">{children}</div>
-      {footer}
+    <div className="h-[100dvh] flex flex-col bg-[#221e1a] text-[#f3ead9] overflow-hidden">
+      <div className={`flex-1 overflow-y-auto overscroll-y-contain pt-6 md:pt-8 px-4 md:px-8 pb-4 ${className}`}>
+        <div className="max-w-2xl w-full mx-auto">{children}</div>
+      </div>
+      {footer && (
+        <div className="shrink-0 w-full pb-[max(0.25rem,env(safe-area-inset-bottom))]">
+          <div className="max-w-2xl w-full mx-auto">{footer}</div>
+        </div>
+      )}
     </div>
   )
 }

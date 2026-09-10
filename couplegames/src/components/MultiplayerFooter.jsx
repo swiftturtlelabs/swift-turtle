@@ -7,7 +7,7 @@ export function MultiplayerFooter({ session, myRole }) {
   if (!me) return null
 
   return (
-    <div className="sticky bottom-0 w-full border-t border-[#463e34] bg-[#1a1613] px-3 py-2 text-xs sm:text-sm text-[#8c8071] flex justify-between items-center gap-3 shrink-0">
+    <div className="w-full border-t border-[#463e34] bg-[#1a1613] px-4 py-2.5 text-xs sm:text-sm text-[#8c8071] flex justify-between items-center gap-3">
       <span>
         You are <PlayerLabel player={me} className="ml-1" />
       </span>
